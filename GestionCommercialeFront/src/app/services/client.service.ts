@@ -20,7 +20,7 @@ export class ClientService {
     return this.http.get<Client>(`${this.apiUrl}/get-client?id=${id}`);
   }
 
-  saveClient(client: Client): Observable<Client> {
+  addClient(client: Client): Observable<Client> {
     return this.http.post<Client>(`${this.apiUrl}/save-client`, client);
   }
 

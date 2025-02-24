@@ -7,21 +7,21 @@ import { ClientListComponent } from './pages/clients/client-list/client-list.com
 import { ClientFormComponent } from './pages/clients/client-form/client-form.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     ClientFormComponent,
     MenuComponent,
     AppComponent,
-    
+    ClientListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ClientListComponent,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
