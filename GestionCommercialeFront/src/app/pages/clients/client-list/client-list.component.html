@@ -1,27 +1,30 @@
-<h2>Client List</h2>
-<a routerLink="/clients/add" class="btn btn-success">Add Client</a>
+<div class="header-container">
+  <h2>Client List</h2>
+  <a routerLink="/clients/add" class="btn btn-success">Add Client</a>
+</div>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Id</th>
       <th scope="col">Code</th>
-      <th scope="col">Intitule</th>
+      <th scope="col">Intutile</th>
       <th scope="col">Telephone</th>
       <th scope="col">Email</th>
       <th scope="col">Adresse</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Edit Client</th>
+      <th scope="col">Delete Client</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let client of clients">
-      <td>{{ client.id }}</td>
       <td>{{ client.code }}</td>
-      <td>{{ client.intitule }}</td>
+      <td>{{ client.intutile }}</td>
       <td>{{ client.telephone }}</td>
       <td>{{ client.email }}</td>
       <td>{{ client.adresse }}</td>
       <td>
-        <button [routerLink]="['/clients/edit', client.id]" class="btn btn-warning">Edit</button>
+        <button [routerLink]="['/client-update', client.id]" class="btn btn-warning">Edit</button>
+      </td>
+      <td>
         <button (click)="deleteClient(client.id!)" class="btn btn-danger">Delete</button>
       </td>
     </tr>

@@ -4,6 +4,7 @@ import { ClientListComponent } from './pages/clients/client-list/client-list.com
 import { ClientFormComponent } from './pages/clients/client-form/client-form.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { ClientUpdateComponent } from './pages/clients/client-update/client-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'clients', component: ClientListComponent },
   { path: 'clients/add', component: ClientFormComponent },
-  { path: 'clients/edit/:id', component: ClientFormComponent }
+  { path: 'client-update/:id', component: ClientUpdateComponent }
 ];
 
 @NgModule({

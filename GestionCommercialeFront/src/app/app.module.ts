@@ -8,9 +8,11 @@ import { ClientFormComponent } from './pages/clients/client-form/client-form.com
 import { MenuComponent } from './pages/menu/menu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClientUpdateComponent } from './pages/clients/client-update/client-update.component';
 
 @NgModule({
   declarations: [
+    ClientUpdateComponent,
     ClientFormComponent,
     MenuComponent,
     AppComponent,
