@@ -9,6 +9,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientUpdateComponent } from './pages/clients/client-update/client-update.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { ClientUpdateComponent } from './pages/clients/client-update/client-upda
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
