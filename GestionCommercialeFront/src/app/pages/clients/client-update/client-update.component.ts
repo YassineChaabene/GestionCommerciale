@@ -12,7 +12,7 @@ import { Client } from '../../../models/client.model';
 })
 export class ClientUpdateComponent implements OnInit {
   updateClientForm!: FormGroup;
-  clientId!: number;
+  clientUuid!: string ;
 
   constructor(
     private fb: FormBuilder,
@@ -30,12 +30,12 @@ export class ClientUpdateComponent implements OnInit {
       adresse: ['', [Validators.required]]
     });
 
-    // Get client ID from the route
-    this.clientId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.clientId) {
-      this.clientService.getClient(this.clientId).subscribe(client => {
-        if (client) {
-          this.updateClientForm.patchValue(client); // Populate form with client data
+    // Get client UUID from the route
+    this.clientUuid = this.route.snapshot.paramMap.get('uuid') || '';
+  if (this.clientUuid) {
+    this.clientService.getClientByUuid(this.clientUuid).subscribe(client => {
+      if (client) {
+        this.updateClientForm.patchValue(client); // Populate form with client dataa
         }
       });
     }
@@ -44,10 +44,14 @@ export class ClientUpdateComponent implements OnInit {
   onUpdate() {
     if (this.updateClientForm.invalid) return;
 
-    const updatedClient: Client = { id: this.clientId, ...this.updateClientForm.value };
+    const updatedClient: Client = { 
+      uuid: this.clientUuid,
+      ...this.updateClientForm.value
+     };
 
-    this.clientService.updateClient(updatedClient).subscribe(() => {
-      this.router.navigate(['/clients']); // Redirect to client list after update
+    this.clientService.updateClient(updatedClient).subscribe({
+      next: () => this.router.navigate(['/clients']),
+    error: (err) => console.error('Error updating client:', err)
     });
   }
 }

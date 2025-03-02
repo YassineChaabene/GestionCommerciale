@@ -1,10 +1,8 @@
 <div class="container-fluid bg-light min-vh-100 d-flex flex-column align-items-center justify-content-center">
     <!-- Navigation Buttons -->
-    <span class="fw-bold">👤 Logged in as: {{ userEmail }}</span>
-    <button (click)="logout()" class="btn btn-danger">Logout</button>
-    <div class="d-flex justify-content-between w-100 p-3">
-       
-        
+    <div class="position-absolute top-0 end-0 p-3">
+        <button (click)="logout()" class="btn btn-danger">Logout</button>
+        <span class="fw-bold ms-2">👤 Logged in as: {{ userEmail }}</span>
     </div>
 
     <div class="container mt-4">

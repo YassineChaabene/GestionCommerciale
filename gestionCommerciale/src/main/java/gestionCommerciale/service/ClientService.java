@@ -30,6 +30,17 @@ public class ClientService {
 		}
 	}
 	
+	public ClientDto getClientByUuid(String uuid) {
+	    Optional<Client> client = clientRepo.findByUuid(uuid);
+		if (client.isPresent()) {
+			return ClientDto.toDto(client.get());
+        }
+		else {
+            return null;
+		}
+	}
+
+	
 	 public ClientDto save(ClientDto clientDto) {
 	        Client client = ClientDto.toEntity(clientDto);
 	        Client savedClient = clientRepo.save(client);
@@ -41,10 +52,25 @@ public class ClientService {
 	}
 	
 	public ClientDto updateClient(ClientDto clientDto) {
-        Client client = ClientDto.toEntity(clientDto);
-        Client updatedClient = clientRepo.save(client);
-        return ClientDto.toDto(updatedClient);
-    }
+	    Optional<Client> clientOpt = clientRepo.findByUuid(clientDto.getUuid());
+
+	    if (clientOpt.isPresent()) {
+	        Client existingClient = clientOpt.get();
+
+	        // Update only the necessary fields
+	        Client updatedClient = ClientDto.toEntity(clientDto);
+	        updatedClient.setId(existingClient.getId()); // Keep the same ID
+	        updatedClient.setUuid(existingClient.getUuid()); // Ensure UUID remains the same
+
+	        // Save updated client
+	        Client savedClient = clientRepo.save(updatedClient);
+
+	        return ClientDto.toDto(savedClient);
+	    } else {
+	        throw new RuntimeException("Client not found with UUID: " + clientDto.getUuid());
+	    }
+	}
+
 	
 	public List<Client> getAllClients(){
 		return this.clientRepo.findAll();

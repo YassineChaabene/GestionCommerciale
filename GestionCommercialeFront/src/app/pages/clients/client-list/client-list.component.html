@@ -5,6 +5,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th scope="col">Uuid</th>
       <th scope="col">Code</th>
       <th scope="col">Intutile</th>
       <th scope="col">Telephone</th>
@@ -16,13 +17,14 @@
   </thead>
   <tbody>
     <tr *ngFor="let client of clients">
+      <td>{{ client.uuid }}</td>
       <td>{{ client.code }}</td>
       <td>{{ client.intutile }}</td>
       <td>{{ client.telephone }}</td>
       <td>{{ client.email }}</td>
       <td>{{ client.adresse }}</td>
       <td>
-        <button [routerLink]="['/client-update', client.id]" class="btn btn-warning">Edit</button>
+        <button [routerLink]="['/client-update', client.uuid]" class="btn btn-warning">Edit</button>
       </td>
       <td>
         <button (click)="deleteClient(client.id!)" class="btn btn-danger">Delete</button>

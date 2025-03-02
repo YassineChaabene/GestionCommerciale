@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,6 +43,16 @@ public class Client {
 	@JsonProperty("adresse")
 	@Column(name="adresse")
 	private String adresse;
+	@JsonProperty("uuid")
+    @Column(unique = true, nullable = false, updatable = false)
+    private String uuid; // Publicly exposed unique identifier
+    
+    @PrePersist
+    public void generateUUID() {
+        if (uuid == null) {
+            uuid = java.util.UUID.randomUUID().toString();
+        }
+    }
 	
 
 }

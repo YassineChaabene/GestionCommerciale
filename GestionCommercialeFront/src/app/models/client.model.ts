@@ -5,5 +5,6 @@ export interface Client {
     telephone: string;
     email: string;
     adresse: string;
+    uuid: string;
   }
   

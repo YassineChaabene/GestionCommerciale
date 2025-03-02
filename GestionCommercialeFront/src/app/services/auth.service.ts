@@ -13,7 +13,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<{ uuid: string; email: string }> {
     return this.http.post<{ uuid: string; email: string }>(this.apiUrl, { email, password }).pipe(
-      map(response => response) // Just passing the response as is
+      map(response => response) 
     );
   }
   logout(): void {

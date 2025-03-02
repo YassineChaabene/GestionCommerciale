@@ -31,4 +31,8 @@ export class ClientService {
   deleteClient(id: number): Observable<void> {
     return this.http.get<void>(`${this.apiUrl}/delete-client?id=${id}`);
   }
+  getClientByUuid(uuid: string): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/get-client-by-uuid?uuid=${uuid}`);
+  }
+  
 }

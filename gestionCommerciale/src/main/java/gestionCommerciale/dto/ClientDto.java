@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDto {
-	
+	private String uuid;
 	private Integer id;
 	private Integer code;
 	private String intutile;
@@ -31,6 +31,7 @@ public class ClientDto {
 				.telephone(entity.getTelephone())
 				.email(entity.getEmail())
 				.adresse(entity.getAdresse())
+				.uuid(entity.getUuid())
 				.build();
 	}
 	
@@ -42,6 +43,7 @@ public class ClientDto {
 	            .telephone(clientDto.getTelephone())
 	            .email(clientDto.getEmail())
 	            .adresse(clientDto.getAdresse())
+	            .uuid(clientDto.getUuid())
 	            .build();
 	}	
 
