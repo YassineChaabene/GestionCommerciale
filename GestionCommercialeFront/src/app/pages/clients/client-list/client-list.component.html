@@ -2,10 +2,18 @@
   <h2>Client List</h2>
   <a routerLink="/clients/add" class="btn btn-success">Add Client</a>
 </div>
+<div>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Filter by email"
+    [(ngModel)]="emailFilter"
+    (input)="filterClients()"
+  />
+</div>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Uuid</th>
       <th scope="col">Code</th>
       <th scope="col">Intutile</th>
       <th scope="col">Telephone</th>
@@ -16,8 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let client of clients">
-      <td>{{ client.uuid }}</td>
+    <tr *ngFor="let client of filteredClients">
       <td>{{ client.code }}</td>
       <td>{{ client.intutile }}</td>
       <td>{{ client.telephone }}</td>

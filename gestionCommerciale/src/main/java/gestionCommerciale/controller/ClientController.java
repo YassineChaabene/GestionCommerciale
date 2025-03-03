@@ -4,6 +4,7 @@ package gestionCommerciale.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,9 +49,16 @@ public class ClientController {
 		return clientService.getAllClients();
 	}
 	@GetMapping("/get-client-by-uuid")
-	public ClientDto getClientByUuid(@RequestParam String uuid) {
-	    return clientService.getClientByUuid(uuid);
+	public ResponseEntity<ClientDto> getClientByUuid(@RequestParam String uuid) {
+	    ClientDto clientDto = clientService.getClientByUuid(uuid);
+	    
+	    if (clientDto != null) {
+	        return ResponseEntity.ok(clientDto); // 200 OK with the client data
+	    } else {
+	        return ResponseEntity.notFound().build(); // 404 Not Found if the client doesn't exist
+	    }
 	}
+
 
 	
 }

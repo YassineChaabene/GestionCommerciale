@@ -16,7 +16,7 @@
             name="email" 
             class="form-control" 
             placeholder="Enter your email" 
-            [(ngModel)]="client.email" 
+            [(ngModel)]="user.email" 
             #emailInput="ngModel"
             required>
           <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
@@ -34,7 +34,7 @@
               name="password" 
               class="form-control" 
               placeholder="Enter your password" 
-              [(ngModel)]="client.password"
+              [(ngModel)]="user.password"
               #passwordInput="ngModel"
               required>
             

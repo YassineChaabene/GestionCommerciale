@@ -17,7 +17,7 @@ import { AuthService } from './../../../services/auth.service';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('captchaCanvas', { static: false }) captchaCanvas!: ElementRef<HTMLCanvasElement>;
 
-  client = {
+  user = {
     email: "",
     password: "",
   };
@@ -65,7 +65,7 @@ export class LoginComponent implements AfterViewInit {
       return; 
     }
   
-    this.authService.login(this.client.email, this.client.password).subscribe({
+    this.authService.login(this.user.email, this.user.password).subscribe({
       next: (response) => {
       console.log('✅ Login successful, redirecting...', response);
       localStorage.setItem('authToken', 'your-generated-token'); // If applicable

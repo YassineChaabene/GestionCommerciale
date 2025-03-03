@@ -16,7 +16,7 @@ public class UserService {
     public User login(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent() && userOptional.get().getPassword().equals(password)) {
-            return userOptional.get(); // Return the user object with UUID
+            return userOptional.get();
         }
         return null; // Authentication failed
     }
