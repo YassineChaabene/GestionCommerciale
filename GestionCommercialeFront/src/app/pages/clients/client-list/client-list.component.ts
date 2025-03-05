@@ -9,7 +9,7 @@ import { Client } from '../../../models/client.model';
   styleUrls: ['./client-list.component.css']
 })
 export class ClientListComponent implements OnInit {
-  clients: Client[] = []; // Now using the Client model
+  clients: Client[] = [];
   filteredClients: Client[] = []; // Stores the filtered list
   emailFilter: string = ''; // Holds the input value
 

@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9090/auth/login'; // Replace with your actual backend URL
+  private apiUrl = 'http://localhost:9090/auth/login';
 
   constructor(private http: HttpClient) {}
 

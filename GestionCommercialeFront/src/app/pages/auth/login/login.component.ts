@@ -31,9 +31,7 @@ export class LoginComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.generateCaptcha();
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('uuid');
-    localStorage.removeItem('email'); // ✅ Clear email on logout
+    this.clearLocalStorage();
   }
 
   generateCaptcha() {
@@ -57,26 +55,24 @@ export class LoginComponent implements AfterViewInit {
     }
   }
 
+  clearLocalStorage() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('uuid');
+    localStorage.removeItem('email');
+  }
+
   onLogin() {
     this.errorMessage = '';
     if (this.userInput.toLowerCase() !== this.captcha.toLowerCase()) {
       this.errorMessage = "❌ CAPTCHA incorrect! Please try again.";
-    
       return; 
     }
   
     this.authService.login(this.user.email, this.user.password).subscribe({
       next: (response) => {
-      console.log('✅ Login successful, redirecting...', response);
-      localStorage.setItem('authToken', 'your-generated-token'); // If applicable
-      localStorage.setItem('uuid', response.uuid); // Store UUID
-      localStorage.setItem('email', response.email); // ✅ Store email
-      this.router.navigate(['/menu']);
-        if (response?.uuid) {
-          this.router.navigate(['/menu']);
-        } else {
-          console.error('🚨 UUID is missing in response');
-        }
+        console.log('✅ Login successful, redirecting...', response);
+        this.storeUserData(response);
+        this.router.navigate(['/menu']);
       },
       error: (err): void => {
         console.error('🚨 Login error:', err);
@@ -84,5 +80,13 @@ export class LoginComponent implements AfterViewInit {
       }
     });
   }
-  
+
+  storeUserData(response: any) {
+    localStorage.setItem('authToken', 'your-generated-token'); // If applicable
+    localStorage.setItem('uuid', response.uuid); // Store UUID
+    localStorage.setItem('email', response.email); // Store email
+    if (!response?.uuid) {
+      console.error('🚨 UUID is missing in response');
+    }
+  }
 }

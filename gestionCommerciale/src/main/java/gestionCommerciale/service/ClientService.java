@@ -56,8 +56,6 @@ public class ClientService {
 
 	    if (clientOpt.isPresent()) {
 	        Client existingClient = clientOpt.get();
-
-	        // Update only the necessary fields
 	        Client updatedClient = ClientDto.toEntity(clientDto);
 	        updatedClient.setId(existingClient.getId()); // Keep the same ID
 	        updatedClient.setUuid(existingClient.getUuid()); // Ensure UUID remains the same
