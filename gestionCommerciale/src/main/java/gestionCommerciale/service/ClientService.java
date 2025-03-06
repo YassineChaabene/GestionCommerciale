@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import gestionCommerciale.convert.ClientConvert;
 import gestionCommerciale.dto.ClientDto;
 import gestionCommerciale.entity.Client;
 import gestionCommerciale.repository.ClientRepo;
@@ -15,15 +15,14 @@ import gestionCommerciale.repository.ClientRepo;
 @Service
 public class ClientService {
 	
-	
-	
+	  
 	@Autowired
 	private ClientRepo clientRepo;
 	
 	public ClientDto getClient(Integer id) {
 		Optional<Client> client=this.clientRepo.findById(id);
 		if (client.isPresent()) {
-			return ClientDto.toDto(client.get());
+			return ClientConvert.toDto(client.get());
         }
 		else {
             return null;
@@ -33,7 +32,7 @@ public class ClientService {
 	public ClientDto getClientByUuid(String uuid) {
 	    Optional<Client> client = clientRepo.findByUuid(uuid);
 		if (client.isPresent()) {
-			return ClientDto.toDto(client.get());
+			return ClientConvert.toDto(client.get());
         }
 		else {
             return null;
@@ -42,9 +41,9 @@ public class ClientService {
 
 	
 	 public ClientDto save(ClientDto clientDto) {
-	        Client client = ClientDto.toEntity(clientDto);
+	        Client client = ClientConvert.toEntity(clientDto);
 	        Client savedClient = clientRepo.save(client);
-	        return ClientDto.toDto(savedClient);
+	        return ClientConvert.toDto(savedClient);
 	    }
 	
 	public void delete(Integer id) {
@@ -56,14 +55,14 @@ public class ClientService {
 
 	    if (clientOpt.isPresent()) {
 	        Client existingClient = clientOpt.get();
-	        Client updatedClient = ClientDto.toEntity(clientDto);
+	        Client updatedClient = ClientConvert.toEntity(clientDto);
 	        updatedClient.setId(existingClient.getId()); // Keep the same ID
 	        updatedClient.setUuid(existingClient.getUuid()); // Ensure UUID remains the same
 
 	        // Save updated client
 	        Client savedClient = clientRepo.save(updatedClient);
 
-	        return ClientDto.toDto(savedClient);
+	        return ClientConvert.toDto(savedClient);
 	    } else {
 	        throw new RuntimeException("Client not found with UUID: " + clientDto.getUuid());
 	    }

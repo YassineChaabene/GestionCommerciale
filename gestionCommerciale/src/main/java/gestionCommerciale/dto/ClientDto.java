@@ -2,7 +2,7 @@ package gestionCommerciale.dto;
 
 
 
-import gestionCommerciale.entity.Client;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,28 +23,4 @@ public class ClientDto {
 	private String adresse;
 	
 	
-	public static ClientDto toDto(Client entity) {
-		return ClientDto.builder()
-				.id(entity.getId())
-				.code(entity.getCode())
-				.intutile(entity.getIntutile())
-				.telephone(entity.getTelephone())
-				.email(entity.getEmail())
-				.adresse(entity.getAdresse())
-				.uuid(entity.getUuid())
-				.build();
-	}
-	
-	public static Client toEntity(ClientDto clientDto) {
-	    return Client.builder()
-	            .id(clientDto.getId())
-	            .code(clientDto.getCode())
-	            .intutile(clientDto.getIntutile())
-	            .telephone(clientDto.getTelephone())
-	            .email(clientDto.getEmail())
-	            .adresse(clientDto.getAdresse())
-	            .uuid(clientDto.getUuid())
-	            .build();
-	}	
-
 }

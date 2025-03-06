@@ -9,14 +9,25 @@ Back
   <h2>Client List</h2>
   <a routerLink="/clients/add" class="btn btn-success">Add Client</a>
 </div>
-<div>
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Filter by email"
-    [(ngModel)]="emailFilter"
-    (input)="filterClients()"
-  />
+<div class="input-group mb-3">
+  <!-- Dropdown to select filter type -->
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Search By: {{ selectedFilter }}
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
+      <li><a class="dropdown-item" (click)="setFilter('email')">Email</a></li>
+      <li><a class="dropdown-item" (click)="setFilter('intitule')">Intutile</a></li>
+      <li><a class="dropdown-item" (click)="setFilter('code')">Code</a></li>
+    </ul>
+  </div>
+
+  <!-- Search input -->
+  <input type="text" class="form-control" placeholder="Enter search value" [(ngModel)]="searchValue" (input)="applyFilter()" />
+
+  <!-- Clear button -->
+  <button class="btn btn-outline-danger" type="button" (click)="clearFilter()">Clear</button>
 </div>
 <table class="table table-hover">
   <thead>

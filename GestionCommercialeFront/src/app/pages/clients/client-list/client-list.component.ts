@@ -11,8 +11,8 @@ import { Client } from '../../../models/client.model';
 export class ClientListComponent implements OnInit {
   clients: Client[] = [];
   filteredClients: Client[] = []; // Stores the filtered list
-  emailFilter: string = ''; // Holds the input value
-
+  searchValue: string = ''; // User input in search bar
+  selectedFilter: string = 'id'; // Default filter type
   
 
   constructor(private clientService: ClientService) {}
@@ -34,23 +34,46 @@ export class ClientListComponent implements OnInit {
     );
   }
 
+  // Set the selected filter type
+  setFilter(filterType: string): void {
+    this.selectedFilter = filterType;
+    this.applyFilter();
+  }
+    // Apply filter based on selected option and input value
+    applyFilter(): void {
+      if (!this.searchValue) {
+        this.filteredClients = this.clients; // If search is empty, show all
+        return;
+      }
+      this.filteredClients = this.clients.filter(client => {
+        const value = this.searchValue.toLowerCase();
+        if (this.selectedFilter === 'id') {
+          return client.id?.toString().includes(value);
+        } else if (this.selectedFilter === 'email') {
+          return client.email.toLowerCase().includes(value);
+        } else if (this.selectedFilter === 'intitule') {
+          return client.intutile.toLowerCase().includes(value);
+        }
+        else if (this.selectedFilter === 'code') {
+          return client.code.toString().includes(value);
+        }
+        return false;
+      });
+    }
+    // Clear filter and reset the list
+  clearFilter(): void {
+    this.searchValue = '';
+    this.filteredClients = this.clients;
+  }
+  
+
   deleteClient(id: number): void {
     if (confirm('Are you sure you want to delete this client?')) {
       this.clientService.deleteClient(id).subscribe(() => {
         this.clients = this.clients.filter(client => client.id !== id);
-        this.filterClients(); // Reapply filter after deletion
+        this.applyFilter(); // Reapply filter after deletion
       });
     }
   }
-  filterClients(): void {
-    console.log("Filter input:", this.emailFilter); // Debugging log
-    if (this.emailFilter.trim()) {
-      this.filteredClients = this.clients.filter(client =>
-        client.email.toLowerCase().includes(this.emailFilter.toLowerCase())
-      );
-    } else {
-      this.filteredClients = [...this.clients]; // Reset when input is empty
-    }
-    console.log("Filtered Clients:", this.filteredClients); // Debugging lo
-  }
+  
 }
