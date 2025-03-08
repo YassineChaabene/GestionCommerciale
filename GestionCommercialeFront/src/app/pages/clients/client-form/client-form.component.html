@@ -2,37 +2,68 @@
 
 <div class="container">
   
-  <button class="btn back-button" onclick="history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
+  <a routerLink="/clients" class="btn back-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
     <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8z"/>
   </svg>
   Back
-  </button>
+  </a>
+  <!-- Success Message Alert -->
+<div *ngIf="successMessage" class="alert alert-success" role="alert">
+  {{ successMessage }}
+</div>
   
-
+    
+  
     <h2>Add Client</h2>
     <form [formGroup]="clientForm" (ngSubmit)="addClient()">
+      <!-- Code Field -->
       <div class="form-group">
-        <label><h5>Code:</h5></label>
-        <input type="text" class="form-control" formControlName="code" required>
+        <label for="code">Code</label>
+        <input type="text" id="code" class="form-control" formControlName="code" />
+        <div *ngIf="clientForm.controls['code'].invalid && clientForm.controls['code'].touched" class="text-danger">
+          Code is required.
+        </div>
       </div>
+    
+      <!-- Intitule Field -->
       <div class="form-group">
-        <label><h5>Intutile:</h5></label>
-        <input type="text" class="form-control" formControlName="intutile" required>
+        <label for="intutile">Intitule</label>
+        <input type="text" id="intutile" class="form-control" formControlName="intutile" />
+        <div *ngIf="clientForm.controls['intutile'].invalid && clientForm.controls['intutile'].touched" class="text-danger">
+          Intitule is required.
+        </div>
       </div>
+    
+      <!-- Telephone Field -->
       <div class="form-group">
-        <label><h5>Telephone:</h5></label>
-        <input type="text" class="form-control" formControlName="telephone" required>
+        <label for="telephone">Telephone</label>
+        <input type="text" id="telephone" class="form-control" formControlName="telephone" />
+        <div *ngIf="clientForm.controls['telephone'].invalid && clientForm.controls['telephone'].touched" class="text-danger">
+          <span *ngIf="clientForm.controls['telephone'].errors?.['required']">Telephone is required.</span>
+          <span *ngIf="clientForm.controls['telephone'].errors?.['pattern']">Telephone must be exactly 8 digits.</span>
+        </div>
       </div>
+    
+      <!-- Email Field -->
       <div class="form-group">
-        <label><h5>Email:</h5></label>
-        <input type="email" class="form-control" formControlName="email" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email" />
+        <div *ngIf="clientForm.controls['email'].invalid && clientForm.controls['email'].touched" class="text-danger">
+          <span *ngIf="clientForm.controls['email'].errors?.['required']">Email is required.</span>
+          <span *ngIf="clientForm.controls['email'].errors?.['email']">Enter a valid email address.</span>
+        </div>
       </div>
+    
+      <!-- Adresse Field -->
       <div class="form-group">
-        <label><h5>Adresse:</h5></label>
-        <input type="text" class="form-control" formControlName="adresse" required>
+        <label for="adresse">Adresse</label>
+        <input type="text" id="adresse" class="form-control" formControlName="adresse" />
+        <div *ngIf="clientForm.controls['adresse'].invalid && clientForm.controls['adresse'].touched" class="text-danger">
+          Adresse is required.
+        </div>
       </div>
       <div class="down">
-      <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Add Client</button>
+      <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid" >Add Client</button>
       <button type="reset" class="btn btn-danger"> Reset</button>
       </div>
     </form>

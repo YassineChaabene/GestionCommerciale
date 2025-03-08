@@ -12,6 +12,7 @@ import { throwError } from 'rxjs';
 })
 export class ClientFormComponent {
   clientForm: FormGroup;
+  successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -32,10 +33,18 @@ export class ClientFormComponent {
     console.log('Form Valid:', this.clientForm.valid); // Check form validity in console
   
     if (this.clientForm.valid) {
-      this.clientService.addClient(this.clientForm.value).subscribe(() => {
-        this.router.navigate(['/clients']);
-      });
+      this.clientService.addClient(this.clientForm.value).subscribe(
+        () => {
+          this.successMessage = 'New client added successfully!';
+          setTimeout(() => {
+            this.successMessage = ''; // Hide message after 3 seconds
+            this.router.navigate(['/clients']); // Navigate to client list
+          }, 3000);
+        },
+        (error) => {
+          console.error('Error adding client', error);
+        }
+      );
     }
   }
-  
 }

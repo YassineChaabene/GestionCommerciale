@@ -13,6 +13,7 @@ import { Client } from '../../../models/client.model';
 export class ClientUpdateComponent implements OnInit {
   updateClientForm!: FormGroup;
   clientUuid!: string ;
+  successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +51,12 @@ export class ClientUpdateComponent implements OnInit {
      };
 
     this.clientService.updateClient(updatedClient).subscribe({
-      next: () => this.router.navigate(['/clients']),
+      next: () =>{this.successMessage = "Client updated successfully!";
+        setTimeout(() => {
+          this.successMessage = ''; // Hide message after 3 seconds
+          this.router.navigate(['/clients']); // Navigate to client list
+        }, 3000);
+      },
     error: (err) => console.error('Error updating client:', err)
     });
   }
