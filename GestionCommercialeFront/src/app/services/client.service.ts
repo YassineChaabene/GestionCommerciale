@@ -2,37 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Client } from '../models/client.model';
+import { environment } from '../../environments/environments';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:9090/clients';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.apiUrl}/get-all-client`);
+    return this.http.get<Client[]>(`${this.apiUrl}/clients/get-all-client`);
   }
 
   getClient(id: number): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/get-client?id=${id}`);
+    return this.http.get<Client>(`${this.apiUrl}/clients/get-client?id=${id}`);
   }
 
   addClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(`${this.apiUrl}/save-client`, client);
+    return this.http.post<Client>(`${this.apiUrl}/clients/save-client`, client);
   }
 
   updateClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(`${this.apiUrl}/update-client`, client);
+    return this.http.post<Client>(`${this.apiUrl}/clients/update-client`, client);
   }
 
   deleteClient(id: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/delete-client?id=${id}`);
+    return this.http.get<void>(`${this.apiUrl}/clients/delete-client?id=${id}`);
   }
   getClientByUuid(uuid: string): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/get-client-by-uuid?uuid=${uuid}`);
+    return this.http.get<Client>(`${this.apiUrl}/clients/get-client-by-uuid?uuid=${uuid}`);
   }
   
 }

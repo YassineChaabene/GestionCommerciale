@@ -36,7 +36,7 @@ export class ClientUpdateComponent implements OnInit {
   if (this.clientUuid) {
     this.clientService.getClientByUuid(this.clientUuid).subscribe(client => {
       if (client) {
-        this.updateClientForm.patchValue(client); // Populate form with client dataa
+        this.updateClientForm.patchValue(client);
         }
       });
     }
@@ -54,7 +54,7 @@ export class ClientUpdateComponent implements OnInit {
       next: () =>{this.successMessage = "Client updated successfully!";
         setTimeout(() => {
           this.successMessage = ''; // Hide message after 3 seconds
-          this.router.navigate(['/clients']); // Navigate to client list
+          this.router.navigate(['/clients']); 
         }, 3000);
       },
     error: (err) => console.error('Error updating client:', err)

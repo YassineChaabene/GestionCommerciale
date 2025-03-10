@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environments';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9090/auth/login';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<{ uuid: string; email: string }> {
-    return this.http.post<{ uuid: string; email: string }>(this.apiUrl, { email, password }).pipe(
+    return this.http.post<{ uuid: string; email: string }>(`${this.apiUrl}/auth/login`, { email, password }).pipe(
       map(response => response) 
     );
   }
