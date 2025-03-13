@@ -25,3 +25,80 @@
 .back-button:active {
   transform: scale(0.95); /* Click effect */
 }
+.search-container {
+  display: flex;
+  align-items: center;
+  background: white;
+  position: sticky;
+  top: 0; /* Ensure it sticks to the top */
+  z-index: 1000; /* Ensures it stays above other elements */
+  border-radius: 50px;
+  padding: 8px 12px;
+  width: 100%;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the table doesn't shift up */
+.table-responsive {
+  margin-top: 10px;
+}
+
+/* Filter Dropdown */
+.filter-btn {
+  background-color: #8a0f62;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+
+.filter-btn:hover {
+  background-color: #6d0d4f;
+}
+
+/* Search Input */
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 8px;
+  background: transparent;
+  font-size: 16px;
+}
+
+/* Clear Button */
+.clear-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #9e0000;
+  margin-right: 10px;
+}
+
+.clear-btn:hover {
+  color: #6d0d4f;
+}
+
+/* Search Icon */
+.search-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #8a0f62;
+  padding: 5px;
+}
+th {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+th:hover {
+  color: #6d0d4f; /* Highlight on hover */
+}
