@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientUpdateComponent } from './pages/clients/client-update/client-update.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 @NgModule({
   declarations: [
     ClientUpdateComponent,
@@ -18,6 +18,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MenuComponent,
     AppComponent,
     ClientListComponent,
+    AppCardsComponent,
   ],
   imports: [
     BrowserModule,

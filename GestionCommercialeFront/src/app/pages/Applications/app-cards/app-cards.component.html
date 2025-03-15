@@ -1,0 +1,38 @@
+<div class="container d-flex flex-column align-items-center mt-4">
+  
+    <!-- Page Header -->
+    <div class="header text-center">
+      <h2 class="page-title">Liste des Applications</h2>
+      
+      <!-- Buttons: Back & Add -->
+      <div class="button-group">
+        <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
+        <button class="btn btn-success">➕ Add Application</button>
+      </div>
+    </div>
+  
+    <!-- Cards Grid -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-4 d-flex justify-content-center" *ngFor="let app of applications">
+        <div class="app-card">
+          <div class="app-card-header">
+            <h4>{{ app.nom }}</h4>
+            <span class="app-card-id">ID: {{ app.id }}</span>
+          </div>
+  
+          <div class="app-card-body"><!--moch oblicatoire-->
+            <strong>Description:</strong> <span class="app-card-description">{{ app.description }}</span>
+            <p><strong>Date d'ajout:</strong> {{ app.dateAjout | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Prix:</strong> <span class="app-card-price">€{{ app.prix | number:'1.2-2' }}</span></p>
+          </div>
+  
+          <div class="app-card-footer d-flex ">
+            <button class="btn btn-warning edit-button" >✏️ Edit</button>
+            <button class="btn btn-danger delete-button" >🗑 Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  

@@ -1,0 +1,126 @@
+.app-card {
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 15px;
+    margin: 15px;
+    font-family: Arial, sans-serif;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .app-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .app-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .app-card-body {
+    padding: 15px;
+  }
+  
+  .app-card-description {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .app-card-id {
+    font-size: 12px;
+    background: white;
+    color: #007bff;
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  
+  .app-card-price {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .app-card-footer {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .app-card-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .app-card-button:hover {
+    background: #0056b3;
+  }
+  /* Button Group Styling */
+
+  
+  /* Common Button Styling */
+  .button-group button {
+    font-size: 16px;
+    padding: 12px 20px; /* Same padding for both */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    min-width: 160px; /* Ensure equal width */
+  }
+  
+  /* Back Button */
+  .back-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .back-button:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+  }
+  
+  /* Add Button */
+  .add-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  .app-card-footer {
+    display: flex;
+    gap: 5px; /* Ajout d'un espacement de 5px entre les boutons */
+    padding: 10px;
+  }
+  
+  /* Style des boutons Modifier & Supprimer */
+  .edit-button, .delete-button {
+    font-size: 14px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    flex: 1; /* Les boutons prennent la même largeur */
+  }
+  
+  .edit-button:hover {
+    background-color: #ffc107;
+    transform: scale(1.05);
+  }
+  
+  .delete-button:hover {
+    background-color: #dc3545;
+    transform: scale(1.05);
+  }
+  
