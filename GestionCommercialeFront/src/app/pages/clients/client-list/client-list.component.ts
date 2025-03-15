@@ -48,7 +48,6 @@ export class ClientListComponent implements OnInit {
 
   applyFilter(): void {
     if (!this.searchValue) {
-      // If no search term, reset to all clients
       this.filteredClients = [...this.clients];
       return;
     }

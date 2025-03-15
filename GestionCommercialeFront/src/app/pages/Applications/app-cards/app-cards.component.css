@@ -64,7 +64,12 @@
     background: #0056b3;
   }
   /* Button Group Styling */
-
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
   
   /* Common Button Styling */
   .button-group button {
@@ -75,8 +80,9 @@
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     min-width: 160px; /* Ensure equal width */
-  }
   
+  }
+ 
   /* Back Button */
   .back-button {
     background-color: #6c757d;

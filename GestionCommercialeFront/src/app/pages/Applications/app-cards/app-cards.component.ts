@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Application } from '../../../models/application.model';
-
+import { ApplicationService } from '../../../services/application.service';
 @Component({
   selector: 'app-app-cards',
   standalone: false,
@@ -8,13 +8,19 @@ import { Application } from '../../../models/application.model';
   styleUrl: './app-cards.component.css'
 })
 export class AppCardsComponent {
-  applications = [
-    { id: 1, nom: 'App One', description: 'First App', dateAjout: new Date(), prix: 19.99 },
-    { id: 2, nom: 'App Two', description: 'Second App', dateAjout: new Date(), prix: 29.99 },
-    { id: 3, nom: 'App Three', description: 'Third App', dateAjout: new Date(), prix: 39.99 },
-    { id: 4, nom: 'App Four', description: 'Fourth App', dateAjout: new Date(), prix: 49.99 },
-    { id: 5, nom: 'App Five', description: 'Fifth App', dateAjout: new Date(), prix: 59.99 },
-    { id: 6, nom: 'App Six', description: 'Sixth App', dateAjout: new Date(), prix: 69.99 }
-  ];
-
+  applications :Application[]=[]
+  ngOnInit(): void {
+    this.getApplications();
+  }
+  constructor(private applicationService: ApplicationService) {}
+  getApplications():void{
+    this.applicationService.getAllApplications().subscribe(
+      (data)=>{
+        this.applications=data;
+      },
+      (error) => {
+        console.error('Error fetching Applications', error);
+      }
+    )
+  }
 }
