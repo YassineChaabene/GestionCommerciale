@@ -12,6 +12,7 @@ import { ClientUpdateComponent } from './pages/clients/client-update/client-upda
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
+import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
 @NgModule({
   declarations: [
     ClientUpdateComponent,
@@ -20,7 +21,8 @@ import { AppFormComponent } from './pages/Applications/app-form/app-form.compone
     AppComponent,
     ClientListComponent,
     AppCardsComponent,
-    AppFormComponent
+    AppFormComponent,
+    AppUpdateComponent
   ],
   imports: [
     BrowserModule,
