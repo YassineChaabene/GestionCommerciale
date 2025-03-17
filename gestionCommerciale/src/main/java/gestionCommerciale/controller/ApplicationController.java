@@ -27,7 +27,7 @@ public class ApplicationController {
 	}
 	
 	@GetMapping("/get-all-applications")
-    public ResponseEntity<List<Application>> getAllClients() {
+    public ResponseEntity<List<Application>> getAllApplications() {
         List<Application> applications = appService.getAllApplications();
         if (!applications.isEmpty()) {
             return ResponseEntity.ok(applications);
@@ -49,7 +49,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/update-application")
-    public ResponseEntity<ApplicationDto> update(@RequestBody ApplicationDto appDto) {
+    public ResponseEntity<ApplicationDto> updateApplication(@RequestBody ApplicationDto appDto) {
     	ApplicationDto updatedApp = appService.updateApplication(appDto);
         if (updatedApp != null) {
             return ResponseEntity.ok(updatedApp);
