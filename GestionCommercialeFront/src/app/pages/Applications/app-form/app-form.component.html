@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="button-group">
+      <button routerLink="/Applications" class="btn btn-secondary back-button">⬅ Back</button>
+    </div>
+  
+    <!-- Success Message Alert -->
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+  
+    <h2 class="text-center">Add Application</h2>
+    <form [formGroup]="applicationForm" (ngSubmit)="addApplication()">
+      <!-- Nom Field -->
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" class="form-control" formControlName="nom" />
+        <div *ngIf="applicationForm.controls['nom'].invalid && applicationForm.controls['nom'].touched" class="text-danger">
+          Nom is required.
+        </div>
+      </div>
+  
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+        <div *ngIf="applicationForm.controls['description'].invalid && applicationForm.controls['description'].touched" class="text-danger">
+          Description is required.
+        </div>
+      </div>
+  
+      <!-- Prix Field -->
+      <div class="form-group">
+        <label for="prix">Prix (€)</label>
+        <input type="number" id="prix" class="form-control" formControlName="prix" />
+        <div *ngIf="applicationForm.controls['prix'].invalid && applicationForm.controls['prix'].touched" class="text-danger">
+          <span *ngIf="applicationForm.controls['prix'].errors?.['required']">Prix is required.</span>
+          <span *ngIf="applicationForm.controls['prix'].errors?.['min']">Prix must be positive.</span>
+        </div>
+      </div>
+  
+      <!-- Date d'Ajout (Auto) -->
+      
+  
+      <div class="down">
+        <button type="submit" class="btn btn-primary" [disabled]="applicationForm.invalid">Add Application</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+      </div>
+    </form>
+  </div>
+  

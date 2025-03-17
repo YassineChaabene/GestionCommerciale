@@ -7,7 +7,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { AuthGuard } from './../app/pages/auth/auth.guard';
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
-
+import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth/login', component: LoginComponent },
@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: 'clients', component: ClientListComponent },
   { path: 'clients/add', component: ClientFormComponent },
   { path: 'client-update/:uuid', component: ClientUpdateComponent },
-   {path:'Applications', component: AppCardsComponent}
-
+   {path:'Applications', component: AppCardsComponent},
+   {path:'Applications/add', component: AppFormComponent}
 ];
 
 @NgModule({

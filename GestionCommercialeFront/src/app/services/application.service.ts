@@ -9,9 +9,11 @@ import { Application } from '../models/application.model';
 })
 export class ApplicationService {
   private apiUrl = environment.apiUrl;
-  
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
     getAllApplications(): Observable<Application[]> {
         return this.http.get<Application[]>(`${this.apiUrl}/applications/get-all-applications`);
+      }
+    addApplication(application: Application): Observable<Application> {
+        return this.http.post<Application>(`${this.apiUrl}/applications/save-application`, application);
       }
 }

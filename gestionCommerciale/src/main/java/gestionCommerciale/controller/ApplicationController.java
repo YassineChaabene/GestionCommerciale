@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import gestionCommerciale.dto.ApplicationDto;
-import gestionCommerciale.dto.ClientDto;
 import gestionCommerciale.entity.Application;
-import gestionCommerciale.entity.Client;
 import gestionCommerciale.service.ApplicationService;
 
 @RestController
