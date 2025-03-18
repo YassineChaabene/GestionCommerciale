@@ -2,7 +2,7 @@ package gestionCommerciale.entity;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,8 +51,13 @@ public class Client {
         }
     }
     
-    
-    
+    @ManyToMany
+    @JoinTable(
+        name = "client_applications",
+        joinColumns = @JoinColumn(name = "client_id"),
+        inverseJoinColumns = @JoinColumn(name = "application_id")
+    )
+    private Set<Application> applications;
 	
 
 }
