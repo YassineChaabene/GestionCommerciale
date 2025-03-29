@@ -1,0 +1,116 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 20%; /* Default width as a percentage of the viewport */
+     /* Minimum width in pixels (fallback for small screens) */
+    background-color: #2c3e50;
+    color: white; /* White text */
+    padding: 20px;
+    overflow-y: auto;
+    transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transitions for width and background */
+  }
+  
+  .sidebar.collapsed {
+    width: 8%; /* Narrow width when collapsed (as a percentage of the viewport) */
+     /* Minimum width in pixels (fallback for small screens) */
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar a:hover {
+    background-color: #34495e; /* Darker hover effect */
+  }
+  
+  .sidebar i {
+    font-size: 16px;
+  }
+  
+  /* Hide Text in Collapsed Mode */
+  .sidebar.collapsed span {
+    display: none; /* Hide text when collapsed */
+  }
+  
+  .sidebar.collapsed .nav-link {
+    justify-content: center; /* Center icons horizontally */
+  }
+  
+  /* Icon Container */
+  .icon-container {
+    display: inline-block;
+    padding: 5px; /* Smaller padding without background */
+    border-radius: 5px;
+    transition: transform 0.3s ease; /* Add hover effect if desired */
+  }
+  
+  .sidebar.collapsed .icon-container {
+    width: auto; /* No full-width background */
+    text-align: center;
+  }
+  
+  .sidebar.collapsed .icon-container i {
+    margin: 0; /* Remove any extra spacing */
+  }
+  
+  /* Toggle Button */
+  .toggle-item {
+    margin-top: auto; /* Push the toggle button to the bottom */
+  }
+  
+  .toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggle-button:hover {
+    background-color: #34495e; /* Hover effect */
+  }
+  
+  .toggle-button i {
+    font-size: 20px;
+  }
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 8%; /* Collapse sidebar on small screens */
+      min-width: 75px; /* Ensure minimum width for icons */
+    }
+  
+    .sidebar span {
+      display: none; /* Hide text on small screens */
+    }
+  
+    .sidebar .nav-link {
+      justify-content: center; /* Center icons horizontally */
+    }
+  
+    
+  }

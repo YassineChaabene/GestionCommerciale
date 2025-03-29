@@ -1,152 +1,118 @@
-<div class="container d-flex flex-column align-items-center mt-4">
+<div class="d-flex">
+  
 
+  <!-- Sidebar -->
+  <app-menu-ui></app-menu-ui>
 
-  <div class="header text-center">
-    <h2 class="page-title">Client List</h2>
-    <div class="button-group">
-    <button class="btn btn-secondary back-button" routerLink="/menu" >⬅ Back</button>
-    <button routerLink="/clients/add" class="btn btn-success ">➕Add Client</button>
-  </div>
-  </div>
-
-  <div class="search-container">
-    <div class="dropdown">
-      <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ selectedFilter }}
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
-        <li><a class="dropdown-item" (click)="setFilter('email')">Email</a></li>
-        <li><a class="dropdown-item" (click)="setFilter('intutile')">Intutile</a></li>
-        <li><a class="dropdown-item" (click)="setFilter('code')">Code</a></li>
-      </ul>
-    </div>
-    
-    <input type="text"
-          class="search-input"
-          placeholder="Search By {{ selectedFilter }}"
-          [(ngModel)]="searchValue"
-          (input)="applyFilter()" />
-
-    <!-- Clear Button -->
-    <button *ngIf="searchValue"
-            class="clear-btn"
-            (click)="clearFilter()">
-      Clear
-    </button>
-
-    <button class="search-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM6.5 11A4.5 4.5 0 1 1 11 6.5 4.5 4.5 0 0 1 6.5 11z"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="container mt-4">
-    <div class="table-responsive">
-      <table class="table table-hover text-center">
-        <thead>
-          <tr>
-            <th scope="col"
-                (click)="sortTable('code')"
-                [class.text-primary]="sortColumn === 'code'">
-              Code
-            </th>
-            <th scope="col"
-                (click)="sortTable('intutile')"
-                [class.text-primary]="sortColumn === 'intutile'">
-              Intutile
-            </th>
-            <th scope="col"
-                (click)="sortTable('telephone')"
-                [class.text-primary]="sortColumn === 'telephone'">
-              Telephone
-            </th>
-            <th scope="col"
-                (click)="sortTable('email')"
-                [class.text-primary]="sortColumn === 'email'">
-              Email
-            </th>
-            <th scope="col"
-                (click)="sortTable('adresse')"
-                [class.text-primary]="sortColumn === 'adresse'">
-              Adresse
-            </th>
-            <th scope="col">Edit Client</th>
-            <th scope="col">Delete Client</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let client of paginatedClients()">
-            <td>{{ client.code }}</td>
-            <td>{{ client.intutile }}</td>
-            <td>{{ client.telephone }}</td>
-            <td>{{ client.email }}</td>
-            <td>{{ client.adresse }}</td>
-            <td>
-              <button [routerLink]="['/client-update', client.uuid]"
-                      class="btn btn-warning">
-                Edit
-              </button>
-            </td>
-            <td>
-              <button (click)="deleteClient(client.id!)"
-                      class="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- Main Content -->
+  <div class="main-content" >
+    <div class="header-container">
+      <h2 class="page-title">Client List</h2>
+      <div class="button-group">
+        <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
+        <button routerLink="/clients/add" class="btn btn-success add-button">➕ Add Client</button>
+      </div>
     </div>
 
-    <!-- Pagination Controls -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <div>
-        <label for="itemsPerPage">Show:</label>
-        <select id="itemsPerPage"
-                class="form-select d-inline-block w-auto ms-2"
-                [(ngModel)]="itemsPerPage"
-                (ngModelChange)="changePageSize($event)">
-          <option *ngFor="let option of pageSizeOptions"
-                  [value]="option">
-            {{ option }}
-          </option>
-        </select>
-        clients per page
+    <div class="search-container">
+      <div class="dropdown">
+        <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ selectedFilter }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('email')">Email</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('intutile')">Intutile</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('code')">Code</a></li>
+        </ul>
       </div>
 
-      <nav>
-        <ul class="pagination">
-          <!-- Previous Button -->
-          <li class="page-item"
-              [class.disabled]="currentPage === 1">
-            <a class="page-link"
-              (click)="changePage(currentPage - 1)">
-              Previous
-            </a>
-          </li>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search By {{ selectedFilter }}"
+        [(ngModel)]="searchValue"
+        (input)="applyFilter()"
+      />
 
-          <!-- Page Number Buttons -->
-          <li *ngFor="let page of totalPagesArray()"
-              class="page-item"
-              [class.active]="page === currentPage">
-            <a class="page-link"
-              (click)="changePage(page)">
-              {{ page }}
-            </a>
-          </li>
+      <!-- Clear Button -->
+      <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
 
-          <!-- Next Button -->
-          <li class="page-item"
-              [class.disabled]="currentPage === totalPages()">
-            <a class="page-link"
-              (click)="changePage(currentPage + 1)">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <button class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM6.5 11A4.5 4.5 0 1 1 11 6.5 4.5 4.5 0 0 1 6.5 11z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="container mt-4">
+      <div class="table-responsive">
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col" (click)="sortTable('code')" [class.text-primary]="sortColumn === 'code'">Code</th>
+              <th scope="col" (click)="sortTable('intutile')" [class.text-primary]="sortColumn === 'intutile'">Intutile</th>
+              <th scope="col" (click)="sortTable('telephone')" [class.text-primary]="sortColumn === 'telephone'">Telephone</th>
+              <th scope="col" (click)="sortTable('email')" [class.text-primary]="sortColumn === 'email'">Email</th>
+              <th scope="col" (click)="sortTable('adresse')" [class.text-primary]="sortColumn === 'adresse'">Adresse</th>
+              <th scope="col">Edit Client</th>
+              <th scope="col">Delete Client</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of paginatedClients()">
+              <td>{{ client.code }}</td>
+              <td>{{ client.intutile }}</td>
+              <td>{{ client.telephone }}</td>
+              <td>{{ client.email }}</td>
+              <td>{{ client.adresse }}</td>
+              <td>
+                <button [routerLink]="['/client-update', client.uuid]" class="btn btn-warning">Edit</button>
+              </td>
+              <td>
+                <button (click)="deleteClient(client.id!)" class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <label for="itemsPerPage">Show:</label>
+          <select
+            id="itemsPerPage"
+            class="form-select d-inline-block w-auto ms-2"
+            [(ngModel)]="itemsPerPage"
+            (ngModelChange)="changePageSize($event)"
+          >
+            <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+          </select>
+          clients per page
+        </div>
+
+        <nav>
+          <ul class="pagination">
+            <!-- Previous Button -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+            </li>
+
+            <!-- Page Number Buttons -->
+            <li *ngFor="let page of totalPagesArray()" class="page-item" [class.active]="page === currentPage">
+              <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+            </li>
+
+            <!-- Next Button -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages()">
+              <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </div>

@@ -1,15 +1,17 @@
-<div class="container d-flex flex-column align-items-center mt-4">
-  
-    <!-- Page Header -->
-    <div class="header text-center">
+<div class="d-flex">
+  <!-- Sidebar -->
+  <app-menu-ui></app-menu-ui>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="header-container">
       <h2 class="page-title">Liste des Applications</h2>
-      
-      <!-- Buttons: Back & Add -->
       <div class="button-group">
         <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
-        <button class="btn btn-success" routerLink="/applications/add">➕ Add Application</button>
+        <button routerLink="/applications/add" class="btn btn-success add-button">➕ Add Application</button>
       </div>
     </div>
+
     <div class="search-container">
       <div class="dropdown">
         <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -18,60 +20,56 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
           <li><a class="dropdown-item" (click)="setFilter('nom')">Nom</a></li>
-
-          
         </ul>
       </div>
-      <!-- Barre de filtrage du prix -->
 
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search By {{ selectedFilter }}"
+        [(ngModel)]="searchValue"
+        (input)="applyFilter()"
+      />
 
-      <input type="text"
-          class="search-input"
-          placeholder="Search By {{ selectedFilter }}"
-          [(ngModel)]="searchValue"
-          (input)="applyFilter()" />
-
-    <!-- Clear Button -->
-    <button *ngIf="searchValue"
-            class="clear-btn"
-            (click)="clearFilter()">
-      Clear
-    </button>
-
-    <button class="search-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM6.5 11A4.5 4.5 0 1 1 11 6.5 4.5 4.5 0 0 1 6.5 11z"/>
-      </svg>
-    </button>
-  </div>
-  <div class="price-filter mt-3">
-    <label for="priceRange">Filtrer par Prix: €{{ priceFilter }}</label>
-    <input type="range" id="priceRange" min="0" [max]="maxPrice" [(ngModel)]="priceFilter" (input)="applyFilter()" />
-  </div>
-
-  
-    <!-- Cards Grid -->
-    <div class="row justify-content-center mt-4">
-      <div class="col-md-4 d-flex justify-content-center" *ngFor="let app of filteredApplications ">
-        <div class="app-card">
-          <div class="app-card-header">
-            <h4>{{ app.nom }}</h4>
-            <span class="app-card-id">ID: {{ app.id }}</span>
-          </div>
-  
-          <div class="app-card-body"><!--moch oblicatoire-->
-            <strong>Description:</strong> <span class="app-card-description">{{ app.description }}</span>
-            <p><strong>Date d'ajout:</strong> {{ app.dateAjout | date:'dd/MM/yyyy' }}</p>
-            <p><strong>Prix:</strong> <span class="app-card-price">€{{ app.prix | number:'1.2-2' }}</span></p>
-          </div>
-  
-          <div class="app-card-footer d-flex ">
-            <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.id]">✏️ Edit</button>
-            <button class="btn btn-danger delete-button" (click)="deleteApplication(app.id!)">🗑 Delete</button>
-          </div>
-        </div>
-      </div>
+      <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
+      <button class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM6.5 11A4.5 4.5 0 1 1 11 6.5 4.5 4.5 0 0 1 6.5 11z"/>
+        </svg>
+      </button>
     </div>
-  
+
+    <div class="price-filter mt-3">
+      <label for="priceRange">Filtrer par Prix: €{{ priceFilter }}</label>
+      <input type="range" id="priceRange" min="0" [max]="maxPrice" [(ngModel)]="priceFilter" (input)="applyFilter()" />
+    </div>
+
+    <div class="table-responsive mt-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Date d'ajout</th>
+            <th>Prix (€)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of filteredApplications">
+            <td>{{ app.id }}</td>
+            <td>{{ app.nom }}</td>
+            <td>{{ app.description }}</td>
+            <td>{{ app.dateAjout | date:'dd/MM/yyyy' }}</td>
+            <td>{{ app.prix | number:'1.2-2' }}</td>
+            <td>
+              <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.id]">✏️ Edit</button>
+              <button class="btn btn-danger delete-button" (click)="deleteApplication(app.id!)">🗑 Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
+</div>

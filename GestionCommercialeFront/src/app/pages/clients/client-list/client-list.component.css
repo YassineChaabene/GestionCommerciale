@@ -1,65 +1,72 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 20%; /* Account for the sidebar width (20% of viewport) */
+  padding: 2%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  width: 80%;
+  transition: margin-left 0.3s ease;
+}
+
+/* Header Container */
 .header-container {
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   flex-direction: column;
-  
+  margin-bottom: 2%;
 }
 
-  /* Button Group Styling */
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-  }
-  
-  /* Common Button Styling */
-  .button-group button {
-    font-size: 16px;
-    padding: 12px 20px; /* Same padding for both */
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    min-width: 160px; /* Ensure equal width */
-  }
-  
-  /* Back Button */
-  .back-button {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .back-button:hover {
-    background-color: #5a6268;
-    transform: scale(1.05);
-  }
-  
-  /* Add Button */
-  .add-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .add-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
 
+/* Common Button Styling */
+.button-group button {
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  min-width: 160px;
+}
 
+.back-button {
+  background-color: #6c757d;
+  color: white;
+}
 
+.back-button:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
 
+.add-button {
+  background-color: #007bff;
+  color: white;
+}
 
+.add-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Search Container */
 .search-container {
   display: flex;
   align-items: center;
   background: white;
-  position: sticky;
-  top: 0; /* Ensure it sticks to the top */
-  z-index: 1000; /* Ensures it stays above other elements */
   border-radius: 50px;
   padding: 8px 12px;
   width: 100%;
@@ -67,12 +74,6 @@
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensure the table doesn't shift up */
-.table-responsive {
-  margin-top: 10px;
-}
-
-/* Filter Dropdown */
 .filter-btn {
   background-color: #8a0f62;
   color: white;
@@ -82,14 +83,12 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-
 }
 
 .filter-btn:hover {
   background-color: #6d0d4f;
 }
 
-/* Search Input */
 .search-input {
   border: none;
   outline: none;
@@ -99,7 +98,6 @@
   font-size: 16px;
 }
 
-/* Clear Button */
 .clear-btn {
   background: none;
   border: none;
@@ -113,7 +111,6 @@
   color: #6d0d4f;
 }
 
-/* Search Icon */
 .search-icon {
   background: none;
   border: none;
@@ -121,12 +118,66 @@
   color: #8a0f62;
   padding: 5px;
 }
+
+/* Table Styling */
+.table-responsive {
+  margin-top: 10px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
 th {
+  background-color: #8a0f62;
+  color: white;
+  padding: 12px;
   cursor: pointer;
   user-select: none;
   transition: color 0.3s;
 }
 
 th:hover {
-  color: #6d0d4f; /* Highlight on hover */
+  color: #f4d1e0;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Action Buttons */
+.edit-button {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
 }

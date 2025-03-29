@@ -13,6 +13,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
 import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
+import { MenuUiComponent } from './pages/menu-ui/menu-ui.component';
 @NgModule({
   declarations: [
     ClientUpdateComponent,
@@ -22,7 +23,8 @@ import { AppUpdateComponent } from './pages/Applications/app-update/app-update.c
     ClientListComponent,
     AppCardsComponent,
     AppFormComponent,
-    AppUpdateComponent
+    AppUpdateComponent,
+    MenuUiComponent
   ],
   imports: [
     BrowserModule,
