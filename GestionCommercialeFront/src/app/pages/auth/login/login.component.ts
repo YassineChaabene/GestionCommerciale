@@ -72,7 +72,11 @@ export class LoginComponent implements AfterViewInit {
       next: (response) => {
         console.log('✅ Login successful, redirecting...', response);
         this.storeUserData(response);
-        this.router.navigate(['/menu']);
+        if (response.role === 'ADMIN') {
+          this.router.navigate(['/admin']); // ✅ Redirect admin to admin panel
+        } else {
+          this.router.navigate(['/menu']); // ✅ Redirect user to menu
+        }
       },
       error: (err): void => {
         console.error('🚨 Login error:', err);

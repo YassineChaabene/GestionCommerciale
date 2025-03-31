@@ -13,8 +13,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
 import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
+
+import { MenuUiComponent } from './pages/menu-ui/menu-ui.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';
+import { UserFormComponent } from './pages/users/user-form/user-form.component';
+
 @NgModule({
   declarations: [
+    UserListComponent,
+    UserFormComponent,
     ClientUpdateComponent,
     ClientFormComponent,
     MenuComponent,
@@ -22,7 +29,8 @@ import { AppUpdateComponent } from './pages/Applications/app-update/app-update.c
     ClientListComponent,
     AppCardsComponent,
     AppFormComponent,
-    AppUpdateComponent
+    AppUpdateComponent,
+    MenuUiComponent
   ],
   imports: [
     BrowserModule,

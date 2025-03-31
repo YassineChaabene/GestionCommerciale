@@ -1,0 +1,43 @@
+<!-- Sidebar -->
+<div class="sidebar" 
+[class.collapsed]="isSidebarCollapsed">
+  <ul class="nav flex-column">
+    <!-- Accueil -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/menu">
+        <div class="icon-container">
+          <i class="fas fa-home"></i>
+        </div>
+        <span *ngIf="!isSidebarCollapsed">Accueil</span>
+      </a>
+    </li>
+
+    <!-- Clients -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/clients">
+        <div class="icon-container">
+          <i class="fas fa-users"></i>
+        </div>
+        <span *ngIf="!isSidebarCollapsed">Clients</span>
+      </a>
+    </li>
+
+    <!-- Applications -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/applications">
+        <div class="icon-container">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <span *ngIf="!isSidebarCollapsed">Applications</span>
+      </a>
+    </li>
+
+    <!-- Toggle Button -->
+    <li class="nav-item toggle-item">
+      <div class="toggle-button" (click)="toggleSidebar()">
+        <i *ngIf="isSidebarCollapsed" class="fas fa-angle-right"></i>
+        <i *ngIf="!isSidebarCollapsed" class="fas fa-angle-left"></i>
+      </div>
+    </li>
+  </ul>
+</div>

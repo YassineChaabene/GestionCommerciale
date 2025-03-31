@@ -65,3 +65,72 @@ canvas {
   font-size: 20px;
   color: #333;
 }
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lottie-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 500px;
+  z-index: 0; /* Ensures it's behind */
+  opacity: 0.5; /* Adjust visibility */
+}
+
+.login-card {
+  position: relative;
+  z-index: 1; /* Makes sure form is above */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.wave-footer {
+  position: fixed; /* or absolute if needed */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0; /* Push behind other content */
+  pointer-events: none; /* Prevents it from blocking interactions */
+}
+
+
+.wave-footer svg path {
+  animation: waveAnimation 5s infinite linear;
+  
+}
+
+
+.bi-arrow-right {
+  margin-left: 8px;
+  font-size: 1.2rem;
+}
+
+.btn-primary {
+  background-color: #007bff; /* Default Blue */
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background-color: #28a745; /* Green on hover */
+}
+
+.btn-primary i {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-primary:hover i {
+  transform: translateX(100%); /* Move arrow to the right */
+}

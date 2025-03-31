@@ -9,17 +9,22 @@ import { AuthGuard } from './../app/pages/auth/auth.guard';
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
 import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';
+import { UserFormComponent } from './pages/users/user-form/user-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'admin', component: MenuComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },
   { path: 'clients', component: ClientListComponent },
   { path: 'clients/add', component: ClientFormComponent },
   { path: 'client-update/:uuid', component: ClientUpdateComponent },
    {path:'applications', component: AppCardsComponent},
    {path:'applications/add', component: AppFormComponent},
-   {path:'application-update/:id', component: AppUpdateComponent }
+   {path:'application-update/:id', component: AppUpdateComponent },
+   { path: 'users', component: UserListComponent },
+   { path: 'users/add', component: UserFormComponent },
 ];
 
 @NgModule({

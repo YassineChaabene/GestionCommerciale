@@ -1,9 +1,10 @@
 package gestionCommerciale.entity;
 
+import gestionCommerciale.common.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
-
+@Builder
 @Entity
 @Table(name = "users")
 @Getter
@@ -22,6 +23,12 @@ public class User {
     @Column(nullable = false)
     private String password;
     
+    @Column(nullable = true)
+    private String name;
+    
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    
     @Column(unique = true, nullable = false, updatable = false)
     private String uuid; // Publicly exposed unique identifier
     
@@ -30,6 +37,8 @@ public class User {
         if (uuid == null) {
             uuid = java.util.UUID.randomUUID().toString();
         }
+      
     }
+    
     
 }

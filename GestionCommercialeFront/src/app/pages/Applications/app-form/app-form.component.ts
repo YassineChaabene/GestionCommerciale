@@ -28,8 +28,8 @@ export class AppFormComponent  {
         () => {
           this.successMessage = 'New Application added successfully!';
           setTimeout(() => {
-            this.successMessage = ''; // Hide message after 3 seconds
-            this.router.navigate(['/Applications']); // Navigate to client list
+            this.successMessage = '';
+            this.router.navigate(['/Applications']);
           }, 3000);
         },
         (error) => {

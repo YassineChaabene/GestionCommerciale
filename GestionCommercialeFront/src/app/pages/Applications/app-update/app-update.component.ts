@@ -50,7 +50,7 @@ export class AppUpdateComponent implements OnInit {
     if (this.updateApplicationForm.invalid) return;
   
     const updatedApplication: Application = { 
-      id: this.appId,  // Assuming you're tracking the application ID
+      id: this.appId,
       ...this.updateApplicationForm.value,
     };
   
@@ -58,7 +58,7 @@ export class AppUpdateComponent implements OnInit {
       next: () => {
         this.successMessage = "Application updated successfully!";
         setTimeout(() => {
-          this.successMessage = ''; // Hide message after 3 seconds
+          this.successMessage = '';
           this.router.navigate(['/applications']); 
         }, 3000);
       },

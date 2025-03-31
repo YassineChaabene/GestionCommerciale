@@ -1,0 +1,145 @@
+<div class="container d-flex flex-column align-items-center mt-4">
+
+    <div class="header text-center">
+      <h2 class="page-title">User List</h2>
+      <div class="button-group">
+        <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
+        <button routerLink="/users/add" class="btn btn-success">➕Add User</button>
+      </div>
+    </div>
+  
+    <div class="search-container">
+      <div class="dropdown">
+        <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ selectedFilter }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('email')">Email</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('nom')">Name</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('role')">Role</a></li>
+        </ul>
+      </div>
+      
+      <input type="text"
+            class="search-input"
+            placeholder="Search By {{ selectedFilter }}"
+            [(ngModel)]="searchValue"
+            (input)="applyFilter()" />
+  
+      <!-- Clear Button -->
+      <button *ngIf="searchValue"
+              class="clear-btn"
+              (click)="clearFilter()">
+        Clear
+      </button>
+  
+      <button class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM6.5 11A4.5 4.5 0 1 1 11 6.5 4.5 4.5 0 0 1 6.5 11z"/>
+        </svg>
+      </button>
+    </div>
+  
+    <div class="container mt-4">
+      <div class="table-responsive">
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col"
+                  (click)="sortTable('id')"
+                  [class.text-primary]="sortColumn === 'id'">
+                ID
+              </th>
+              <th scope="col"
+                  (click)="sortTable('email')"
+                  [class.text-primary]="sortColumn === 'email'">
+                Email
+              </th>
+              <th scope="col"
+                  (click)="sortTable('name')"
+                  [class.text-primary]="sortColumn === 'name'">
+                Name
+              </th>
+              <th scope="col"
+                  (click)="sortTable('role')"
+                  [class.text-primary]="sortColumn === 'role'">
+                Role
+              </th>
+              <th scope="col">Edit User</th>
+              <th scope="col">Delete User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of paginatedUsers()">
+              <td>{{ user.id }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button [routerLink]="['/user-update', user.uuid]"
+                        class="btn btn-warning">
+                  Edit
+                </button>
+              </td>
+              <td>
+                <button (click)="deleteUser(user.id!)"
+                        class="btn btn-danger">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <label for="itemsPerPage">Show:</label>
+          <select id="itemsPerPage"
+                  class="form-select d-inline-block w-auto ms-2"
+                  [(ngModel)]="itemsPerPage"
+                  (ngModelChange)="changePageSize($event)">
+            <option *ngFor="let option of pageSizeOptions"
+                    [value]="option">
+              {{ option }}
+            </option>
+          </select>
+          users per page
+        </div>
+  
+        <nav>
+          <ul class="pagination">
+            <!-- Previous Button -->
+            <li class="page-item"
+                [class.disabled]="currentPage === 1">
+              <a class="page-link"
+                (click)="changePage(currentPage - 1)">
+                Previous
+              </a>
+            </li>
+  
+            <!-- Page Number Buttons -->
+            <li *ngFor="let page of totalPagesArray()"
+                class="page-item"
+                [class.active]="page === currentPage">
+              <a class="page-link"
+                (click)="changePage(page)">
+                {{ page }}
+              </a>
+            </li>
+  
+            <!-- Next Button -->
+            <li class="page-item"
+                [class.disabled]="currentPage === totalPages()">
+              <a class="page-link"
+                (click)="changePage(currentPage + 1)">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
