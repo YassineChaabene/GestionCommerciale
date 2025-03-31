@@ -32,11 +32,11 @@
       
       <!-- Name Field -->
       <div class="form-group">
-        <label for="nom">Name</label>
-        <input type="text" id="nom" class="form-control" formControlName="nom" />
-        <div *ngIf="userForm.controls['nom'].invalid && userForm.controls['nom'].touched" class="text-danger">
-          Name is required.
-        </div>
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name" />
+          <div *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].touched" class="text-danger">
+              <span *ngIf="userForm.controls['name'].errors?.['required']">Name is required.</span>
+          </div>
       </div>
       
       <!-- Role Field -->

@@ -22,7 +22,7 @@ export class UserFormComponent {
     this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      nom: ['', Validators.required],
+      name: ['', Validators.required],
       role: ['USER', Validators.required] // Default to USER
     });
   }

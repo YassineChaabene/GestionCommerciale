@@ -13,6 +13,7 @@ public class UserConvert {
             return null;
         }
 		return UserDto.builder()
+				.name(entity.getName())
                 .id(entity.getId())
                 .uuid(entity.getUuid())
                 .email(entity.getEmail())
@@ -28,6 +29,7 @@ public class UserConvert {
 			 return null;
 	     }
 	     return User.builder()
+	    		 .name(userDto.getName())
 	    		 .id(userDto.getId())
 	             .uuid(userDto.getUuid())
 	             .email(userDto.getEmail())
