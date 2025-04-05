@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'admin', component: MenuComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },
   { path: 'clients', component: ClientListComponent },
   { path: 'clients/add', component: ClientFormComponent },
   { path: 'client-update/:uuid', component: ClientUpdateComponent },

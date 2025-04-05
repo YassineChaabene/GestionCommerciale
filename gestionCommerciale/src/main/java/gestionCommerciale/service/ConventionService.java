@@ -1,0 +1,101 @@
+package gestionCommerciale.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import gestionCommerciale.convert.ConventionConvert;
+import gestionCommerciale.dto.ConventionDto;
+import gestionCommerciale.entity.Convention;
+import gestionCommerciale.repository.ConventionRepository;
+
+@Service
+public class ConventionService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConventionService.class);
+    
+    @Autowired
+    private ConventionRepository conventionRepository;
+    
+    public List<Convention> getAllConventions() {
+        logger.info("Fetching all conventions");
+        List<Convention> conventions = conventionRepository.findAll();
+        logger.info("Total conventions found: {}", conventions.size());
+        return conventions;
+    }
+    
+    public ConventionDto getConvention(Long id) {
+        logger.info("Fetching convention with ID: {}", id);
+        Optional<Convention> convention = conventionRepository.findById(id);
+        
+        if (convention.isPresent()) {
+            logger.info("Convention found: {}", convention.get());
+            return ConventionConvert.toDto(convention.get());
+        } else {
+            logger.warn("Convention not found with ID: {}", id);
+            return null;
+        }
+    }
+    
+    public ConventionDto save(ConventionDto conventionDto) {
+        logger.info("Saving new convention: {}", conventionDto);
+        Convention convention = ConventionConvert.toEntity(conventionDto);
+        Convention savedConvention = conventionRepository.save(convention);
+        logger.info("Convention saved successfully with ID: {}", savedConvention.getId());
+        return ConventionConvert.toDto(savedConvention);
+    }
+    
+    public void delete(Long id) {
+        logger.warn("Deleting convention with ID: {}", id);
+        conventionRepository.deleteById(id);
+        logger.info("Convention with ID {} deleted successfully", id);
+    }
+    
+    public ConventionDto updateConvention(ConventionDto conventionDto) {
+        logger.info("Updating convention: {}", conventionDto);
+        Optional<Convention> conventionOpt = conventionRepository.findById(conventionDto.getId());
+
+        if (conventionOpt.isPresent()) {
+            Convention existingConvention = conventionOpt.get();
+            Convention updatedConvention = ConventionConvert.toEntity(conventionDto);
+            updatedConvention.setId(existingConvention.getId()); // Keep the same ID
+
+            Convention savedConvention = conventionRepository.save(updatedConvention);
+            logger.info("Convention updated successfully: {}", savedConvention);
+            return ConventionConvert.toDto(savedConvention);
+        } else {
+            logger.error("Convention not found with ID: {}", conventionDto.getId());
+            throw new RuntimeException("Convention not found with Id: " + conventionDto.getId());
+        }
+    }
+
+    public List<Convention> getActiveConventions() {
+        logger.info("Fetching active conventions");
+        List<Convention> conventions = conventionRepository.findByArchivedFalse();
+        logger.info("Active conventions found: {}", conventions.size());
+        return conventions;
+    }
+
+    public void archiveConvention(Long id) {
+        logger.info("Archiving convention with ID: {}", id);
+        Convention convention = conventionRepository.findById(id).orElseThrow(() -> {
+            logger.error("Convention not found with ID: {}", id);
+            return new RuntimeException("Convention not found with Id: " + id);
+        });
+        convention.setArchived(true);
+        conventionRepository.save(convention);
+        logger.info("Convention with ID {} archived successfully", id);
+    }
+
+    public List<Convention> getConventionsExpiringSoon() {
+        logger.info("Fetching conventions expiring soon");
+        List<Convention> conventions = conventionRepository.findByEndDateBefore(LocalDate.now().plusDays(30));
+        logger.info("Conventions expiring soon found: {}", conventions.size());
+        return conventions;
+    }
+}

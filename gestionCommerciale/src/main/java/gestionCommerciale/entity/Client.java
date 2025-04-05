@@ -53,7 +53,7 @@ public class Client {
     
     @ManyToMany
     @JoinTable(
-        name = "client_applications",
+        name = "conventions",
         joinColumns = @JoinColumn(name = "client_id"),
         inverseJoinColumns = @JoinColumn(name = "application_id")
     )
