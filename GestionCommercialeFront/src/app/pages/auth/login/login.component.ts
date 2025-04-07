@@ -56,39 +56,34 @@ export class LoginComponent implements AfterViewInit {
   }
 
   clearLocalStorage() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('uuid');
-    localStorage.removeItem('email');
+    localStorage.clear();
   }
 
   onLogin() {
     this.errorMessage = '';
-    if (this.userInput.toLowerCase() !== this.captcha.toLowerCase()) {
+    /*if (this.userInput.toLowerCase() !== this.captcha.toLowerCase()) {
       this.errorMessage = "❌ CAPTCHA incorrect! Please try again.";
       return; 
-    }
+    }*/
   
     this.authService.login(this.user.email, this.user.password).subscribe({
       next: (response) => {
         console.log('✅ Login successful, redirecting...', response);
-        this.storeUserData(response);
+                
          
           this.router.navigate(['/menu']); // ✅ Redirect admin to admin panel
          
+
+        
       },
       error: (err): void => {
         console.error('🚨 Login error:', err);
-        this.errorMessage = "❌ Login failed! Please check your credentials.";
+         if (err.error?.message) {
+          this.errorMessage = `❌ ${err.error.message}`; // Extract message from response
+        } 
       }
     });
   }
 
-  storeUserData(response: any) {
-    localStorage.setItem('authToken', 'your-generated-token'); // If applicable
-    localStorage.setItem('uuid', response.uuid); // Store UUID
-    localStorage.setItem('email', response.email); // Store email
-    if (!response?.uuid) {
-      console.error('🚨 UUID is missing in response');
-    }
-  }
+  
 }

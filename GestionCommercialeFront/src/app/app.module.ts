@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientListComponent } from './pages/clients/client-list/client-list.component';
@@ -17,8 +18,11 @@ import { AppUpdateComponent } from './pages/Applications/app-update/app-update.c
 import { MenuUiComponent } from './pages/menu-ui/menu-ui.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
+import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
+
 
 @NgModule({
+
   declarations: [
     UserListComponent,
     UserFormComponent,
@@ -30,11 +34,13 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
     AppCardsComponent,
     AppFormComponent,
     AppUpdateComponent,
-    MenuUiComponent
+    MenuUiComponent,ConventionListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatSliderModule,
+    MatCardModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule

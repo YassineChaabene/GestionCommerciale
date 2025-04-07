@@ -11,6 +11,7 @@ import { AppFormComponent } from './pages/Applications/app-form/app-form.compone
 import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
+import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
    {path:'applications/add', component: AppFormComponent},
    {path:'application-update/:id', component: AppUpdateComponent },
    { path: 'users', component: UserListComponent },
+   { path: 'conventions', component: ConventionListComponent },
    { path: 'users/add', component: UserFormComponent },
 ];
 

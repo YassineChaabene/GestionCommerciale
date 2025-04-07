@@ -20,6 +20,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class MenuComponent {
   constructor(private router:Router, private authservice:AuthService ){}
   userEmail: string | null = null;
+  userName: string | null = null;
   role: string | null = localStorage.getItem('role');
   ngOnInit() {
     this.userEmail = localStorage.getItem('email'); // ✅ Retrieve stored email

@@ -24,7 +24,7 @@ public class ApplicationService {
     public List<Application> getAllApplications() {
         logger.info("Fetching all applications");
         List<Application> applications = appRepo.findAll();
-        logger.info("Total clients found: {}", applications.size());
+        logger.info("Total Application found: {}", applications.size());
         return applications;
     }
     

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu-ui',
@@ -8,10 +9,10 @@ import { Component } from '@angular/core';
 })
 export class MenuUiComponent {
   isSidebarCollapsed = false; // Tracks whether the sidebar is collapsed
-
-  /**
-   * Toggle the sidebar between collapsed and expanded states
-   */
+constructor( private authservice:AuthService ){}
+  userEmail: string | null = null;
+  role: string | null = localStorage.getItem('role');
+  
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }

@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
   <div class="col-md-6">
     <div class="card shadow-lg p-4 border-0">
-      <img src="./../../../../../public/cni.png" alt="Logo" class="mb-3 text-center style=width: 100px; height: auto;">
+      <img src="./../../../../../cni.png" alt="Logo" class="mb-3 d-flex mx-auto" style="width: 100px; height: 100px;">
       <h2 class="text-center mb-3">Login to Your Account</h2>
 
       <!-- General Error Message -->
@@ -9,40 +9,36 @@
 
       <form #loginForm="ngForm" (ngSubmit)="onLogin()">
         <!-- Email Input -->
-        <div class="mb-3">
-          <label>Email</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-            <input 
-              type="email" 
-              name="email" 
-              class="form-control" 
-              placeholder="Enter your email" 
-              [(ngModel)]="user.email" 
-              #emailInput="ngModel"
-              required>
-          </div>
+        <div class="mb-4 position-relative">
+          <input 
+            type="email" 
+            id="email"
+            name="email" 
+            class="form-control custom-input" 
+            placeholder=" " 
+            [(ngModel)]="user.email" 
+            #emailInput="ngModel"
+            required>
+          <label for="email" class="floating-label">E-mail</label>
+          <!-- Email Required Error Message -->
           <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
             Email is required!
           </div>
         </div>
-
-        <!-- Password Input with Toggle -->
-        <div class="mb-3">
-          <label>Password</label>
-          <div class="input-group">
-            <input 
-              [type]="showPassword ? 'text' : 'password'" 
-              name="password" 
-              class="form-control" 
-              placeholder="Enter your password" 
-              [(ngModel)]="user.password"
-              #passwordInput="ngModel"
-              required>
-            <button type="button" class="btn btn-light " (click)="showPassword = !showPassword">
-              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-            </button>
-          </div>
+      
+        <!-- Password Input -->
+        <div class="mb-4 position-relative">
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="password"
+            name="password" 
+            class="form-control custom-input pe-5" 
+            placeholder=" " 
+            [(ngModel)]="user.password"
+            #passwordInput="ngModel"
+            required>
+          <label for="password" class="floating-label">Password</label>
+          <!-- Password Required Error Message -->
           <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
             Password is required!
           </div>

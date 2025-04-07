@@ -70,17 +70,21 @@ public class UserController {
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> loginRequest) {
         String email = loginRequest.get("email");
         String password = loginRequest.get("password");
+        Map<String, String> response = new HashMap<>();
 
         User authenticatedUser = userService.login(email, password);
         
-        if (authenticatedUser != null) {
-            Map<String, String> response = new HashMap<>();
+        try  {
+            
             response.put("uuid", authenticatedUser.getUuid());
             response.put("email", authenticatedUser.getEmail());
             response.put("role", authenticatedUser.getRole().toString());
+            response.put("name", authenticatedUser.getName());
             return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (RuntimeException ex) {
+            String errorMessage = ex.getMessage();
+            response.put("error", errorMessage); // Include error message in response
+            return ResponseEntity.ok(response); // Always return 200 OK
         }
     }
 }

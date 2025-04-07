@@ -134,3 +134,76 @@ canvas {
 .btn-primary:hover i {
   transform: translateX(100%); /* Move arrow to the right */
 }
+/* Style général des champs */
+/* Style général des champs */
+.custom-input {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  padding: 10px 12px 10px 12px; /* Ajout de padding gauche et droite pour que le label ne sorte pas */
+  width: 100%;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: white;
+  position: relative;
+}
+
+/* Style lorsqu'on clique sur l'input */
+.custom-input:focus {
+  border-color: #007bff; /* Bleu */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Floating label */
+.floating-label {
+  position: absolute;
+  top: 33%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #777;
+  transition: all 0.3s ease-in-out;
+  background: white;
+  padding: 0 5px;
+  pointer-events: none; /* Pour que le label ne bloque pas les clics */
+}
+
+/* Quand l'utilisateur commence à écrire ou si l'input est en focus */
+.custom-input:focus + .floating-label,
+.custom-input:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  left: 10px;
+  font-size: 16px;
+  color: #007bff;
+  padding: 0 5px;
+}
+
+/* Style des messages d'erreur */
+.text-danger {
+  font-size: 14px;
+  margin-top: 5px;
+  color: red;
+}
+
+/* Ajout d'une animation de tremblement pour les erreurs */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+}
+
+.input-error {
+  border-color: red !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Messages d'erreur affichés */
+input:invalid + .text-danger {
+  display: block;
+}
+
+/* Rendre le formulaire plus élégant */
+.position-relative {
+  margin-bottom: 20px;
+}

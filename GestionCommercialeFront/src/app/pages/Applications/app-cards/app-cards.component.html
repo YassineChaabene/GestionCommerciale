@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="">
   <!-- Sidebar -->
   <app-menu-ui></app-menu-ui>
 
@@ -40,7 +40,7 @@
     </div>
 
     <div class="price-filter mt-3">
-      <label for="priceRange">Filtrer par Prix: €{{ priceFilter }}</label>
+      <label for="priceRange">Filtrer par Prix: {{ priceFilter }}</label>
       <input type="range" id="priceRange" min="0" [max]="maxPrice" [(ngModel)]="priceFilter" (input)="applyFilter()" />
     </div>
 
@@ -51,9 +51,10 @@
             <th>ID</th>
             <th>Nom</th>
             <th>Description</th>
-            <th>Date d'ajout</th>
-            <th>Prix (€)</th>
-            <th>Actions</th>
+            <th>Date d'exploitaion</th>
+            <th>Prix (dt)</th>
+            <th>Edit Application</th>
+            <th>Delete Application</th>
           </tr>
         </thead>
         <tbody>
@@ -65,8 +66,9 @@
             <td>{{ app.prix | number:'1.2-2' }}</td>
             <td>
               <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.id]">✏️ Edit</button>
-              <button class="btn btn-danger delete-button" (click)="deleteApplication(app.id!)">🗑 Delete</button>
+              
             </td>
+            <td><button class="btn btn-danger delete-button" (click)="deleteApplication(app.id!)">🗑 Delete</button></td>
           </tr>
         </tbody>
       </table>

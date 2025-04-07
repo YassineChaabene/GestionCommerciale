@@ -16,6 +16,10 @@ public class ApplicationController {
 	@Autowired
 	private ApplicationService appService;
 	
+	@GetMapping("/test")
+    public String testEndpoint() {
+        return "ApplicationController is working!";
+    }
 	@GetMapping("/get-application")
 	public ResponseEntity<ApplicationDto> getApplication(@RequestParam Long id){
 		ApplicationDto appDto= appService.getApplication(id);
@@ -27,14 +31,16 @@ public class ApplicationController {
 	}
 	
 	@GetMapping("/get-all-applications")
-    public ResponseEntity<List<Application>> getAllApplications() {
-        List<Application> applications = appService.getAllApplications();
-        if (!applications.isEmpty()) {
-            return ResponseEntity.ok(applications);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
-    }
+	public ResponseEntity<List<Application>> getAllApplications() {
+	    List<Application> applications = appService.getAllApplications();
+	    System.out.println("Fetched applications: " + applications.size());
+	    if (!applications.isEmpty()) {
+	        return ResponseEntity.ok(applications);
+	    } else {
+	        return ResponseEntity.noContent().build();
+	    }
+	}
+
 	
 	@PostMapping("/save-application")
     public ResponseEntity<ApplicationDto> save(@RequestBody ApplicationDto appDto) {
