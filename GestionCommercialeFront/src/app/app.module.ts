@@ -14,17 +14,20 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AppCardsComponent } from './pages/Applications/app-cards/app-cards.component';
 import { AppFormComponent } from './pages/Applications/app-form/app-form.component';
 import { AppUpdateComponent } from './pages/Applications/app-update/app-update.component';
-
 import { MenuUiComponent } from './pages/menu-ui/menu-ui.component';
-import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
-import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';  
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component'
+import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
+
 
 
 @NgModule({
 
   declarations: [
     UserListComponent,
+    UserUpdateComponent,
     UserFormComponent,
     ClientUpdateComponent,
     ClientFormComponent,
@@ -34,7 +37,8 @@ import { ConventionListComponent } from './pages/convention/convention-list/conv
     AppCardsComponent,
     AppFormComponent,
     AppUpdateComponent,
-    MenuUiComponent,ConventionListComponent
+    MenuUiComponent,
+    ConventionListComponent,
   ],
   imports: [
     BrowserModule,

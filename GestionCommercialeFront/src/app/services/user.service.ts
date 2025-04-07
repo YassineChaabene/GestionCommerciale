@@ -26,9 +26,8 @@ export class UserService {
   addUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/users/save-user`, user);
   }
-
-  changePassword(id: number, newPassword: string): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/users/${id}/change-password`, { password: newPassword });
+  updateUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/users/update-user`, user);
   }
   
 

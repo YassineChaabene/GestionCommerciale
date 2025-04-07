@@ -30,15 +30,23 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.userService.getAllUsers().subscribe(
-      (data) => {
-        this.users = data;
-        this.filteredUsers = data;
+    this.userService.getAllUsers().subscribe({
+      next: (users) => {
+        this.users = users.map(user => ({
+          ...user,
+          showPassword: false // Initialize showPassword for each user
+        }));
+        this.filteredUsers = [...this.users];
       },
-      (error) => {
-        console.error('Error fetching users', error);
-      }
-    );
+      error: (error) => console.error('Error fetching users', error)
+    });
+  }
+
+
+  togglePasswordVisibility(user: User): void {
+    if (user) {
+      user.showPassword = !user.showPassword;
+    }
   }
 
   setFilter(filterType: string): void {

@@ -12,6 +12,7 @@ import { AppUpdateComponent } from './pages/Applications/app-update/app-update.c
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
+import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
    { path: 'users', component: UserListComponent },
    { path: 'conventions', component: ConventionListComponent },
    { path: 'users/add', component: UserFormComponent },
+   {path: 'user-update/:id', component: UserUpdateComponent },
 ];
 
 @NgModule({

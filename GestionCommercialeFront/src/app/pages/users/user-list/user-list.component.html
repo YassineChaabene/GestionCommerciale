@@ -66,6 +66,9 @@
                   [class.text-primary]="sortColumn === 'role'">
                 Role
               </th>
+              <th scope="col">
+                Password
+              </th>
               <th scope="col">Edit User</th>
               <th scope="col">Delete User</th>
             </tr>
@@ -77,7 +80,16 @@
               <td>{{ user.name }}</td>
               <td>{{ user.role }}</td>
               <td>
-                <button [routerLink]="['/user-update', user.uuid]"
+                <button class="btn btn-sm btn-outline-secondary" 
+                        (click)="togglePasswordVisibility(user)">
+                  <i class="bi bi-eye{{ user.showPassword ? '-slash' : '' }}"></i>
+                </button>
+                <span *ngIf="user.showPassword" class="ms-2">
+                  {{ user.password || 'No password set' }}
+                </span>
+              </td>
+              <td>
+                <button [routerLink]="['/user-update', user.id]"
                         class="btn btn-warning">
                   Edit
                 </button>

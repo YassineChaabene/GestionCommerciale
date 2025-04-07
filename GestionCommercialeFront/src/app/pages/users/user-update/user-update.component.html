@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="button-group">
+      <button routerLink="/users" class="btn btn-secondary back-button">⬅ Back</button>
+    </div>
+  
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+  
+    <h2>Update User</h2>
+    <form [formGroup]="updateUserForm" (ngSubmit)="onUpdate()">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name" />
+        <div *ngIf="updateUserForm.controls['name'].invalid && updateUserForm.controls['name'].touched" class="text-danger">
+          Name is required.
+        </div>
+      </div>
+  
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email" />
+        <div *ngIf="updateUserForm.controls['email'].invalid && updateUserForm.controls['email'].touched" class="text-danger">
+          <span *ngIf="updateUserForm.controls['email'].errors?.['required']">Email is required.</span>
+          <span *ngIf="updateUserForm.controls['email'].errors?.['email']">Enter a valid email.</span>
+        </div>
+      </div>
+  
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" formControlName="password" />
+        <div *ngIf="updateUserForm.controls['password'].invalid && updateUserForm.controls['password'].touched" class="text-danger">
+          <span *ngIf="updateUserForm.controls['password'].errors?.['required']">Password is required.</span>
+          <span *ngIf="updateUserForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters.</span>
+        </div>
+      </div>
+  
+      <!-- Role Field -->
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" class="form-control" formControlName="role">
+          <option value="ADMIN">Admin</option>
+          <option value="USER">User</option>
+        </select>
+        <div *ngIf="updateUserForm.controls['role'].invalid && updateUserForm.controls['role'].touched" class="text-danger">
+          Role is required.
+        </div>
+      </div>
+  
+      <div class="down">
+        <button type="submit" class="btn btn-success" [disabled]="updateUserForm.invalid">Update User</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+      </div>
+    </form>
+  </div>
