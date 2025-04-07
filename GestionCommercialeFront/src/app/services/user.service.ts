@@ -27,10 +27,10 @@ export class UserService {
     return this.http.post<User>(`${this.apiUrl}/users/save-user`, user);
   }
 
-  // Update an existing user
-  updateUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users/update-user`, user);
+  changePassword(id: number, newPassword: string): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/users/${id}/change-password`, { password: newPassword });
   }
+  
 
   // Delete a user
   deleteUser(id: number): Observable<void> {

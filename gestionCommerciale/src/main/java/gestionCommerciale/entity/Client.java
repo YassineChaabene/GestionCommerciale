@@ -2,6 +2,8 @@ package gestionCommerciale.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import jakarta.persistence.Column;
@@ -52,6 +54,7 @@ public class Client {
     }
     
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
         name = "conventions",
         joinColumns = @JoinColumn(name = "client_id"),
