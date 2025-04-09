@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Convention } from '../models/convention.model';
 import { environment } from '../../environments/environments';
+import { ConventionRequest } from '../pages/convention/convention-form/convention-request.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,8 @@ export class ConventionService {
      updateconvention(convention: Convention): Observable<Convention> {
         return this.http.post<Convention>(`${this.apiUrl}/conventions/update-convention`, convention );
       }
-      addConvention(convention: Convention): Observable<Convention> {
-          return this.http.post<Convention>(`${this.apiUrl}/conventions/save-convention`, convention);
-        }
+      addConvention(data: ConventionRequest): Observable<Convention> {
+        return this.http.post<Convention>(`${this.apiUrl}/conventions/save-convention`, data);
+      }
+      
 }

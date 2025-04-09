@@ -3,6 +3,7 @@ package gestionCommerciale.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,7 @@ public class ConventionController {
     @PostMapping("/save-convention")
     public ResponseEntity<ConventionDto> save(@RequestBody ConventionDto conventionDto) {
         ConventionDto savedConvention = conventionService.save(conventionDto);
-        return ResponseEntity.ok(savedConvention);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedConvention);
     }
 
     @GetMapping("/delete-convention")

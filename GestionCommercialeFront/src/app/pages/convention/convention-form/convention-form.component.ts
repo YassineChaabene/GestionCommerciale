@@ -6,6 +6,7 @@ import { ApplicationService } from '../../../services/application.service';
 import { Client } from '../../../models/client.model';
 import { Application } from '../../../models/application.model';
 import { Convention } from '../../../models/convention.model';
+import { ConventionRequest } from './convention-request.model';
 
 @Component({
   selector: 'app-convention-form',
@@ -56,19 +57,18 @@ export class ConventionFormComponent implements OnInit {
   
   submitForm(): void {
     if (this.conventionForm.valid) {
-      const formData = {
+      const formData: ConventionRequest = {
         code: this.conventionForm.value.code,
         status: this.conventionForm.value.status,
         startDate: new Date(this.conventionForm.value.startDate).toISOString().split('T')[0],
         endDate: this.conventionForm.value.endDate 
           ? new Date(this.conventionForm.value.endDate).toISOString().split('T')[0]
-          : '',
-        client: { id: this.conventionForm.value.clientId },  // Only store ID
-        application: { id: this.conventionForm.value.applicationId }  // Only store ID
+          : null,
+        archived: false,
+        clientId: this.conventionForm.value.clientId,
+        applicationId: this.conventionForm.value.applicationId
       };
-
-      console.log('Submitting:', formData); // Debugging
-
+  
       this.conventionService.addConvention(formData).subscribe({
         next: () => {
           this.successMessage = 'Convention added successfully!';
@@ -78,4 +78,5 @@ export class ConventionFormComponent implements OnInit {
       });
     }
   }
+  
 }
