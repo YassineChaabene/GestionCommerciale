@@ -21,7 +21,6 @@ public class ConventionDto {
 	 private LocalDate startDate;
 	 private LocalDate endDate;
 	 private boolean archived;
-	 private String clientName;
 	 private Integer clientId;
 	 private Long applicationId;
 	 

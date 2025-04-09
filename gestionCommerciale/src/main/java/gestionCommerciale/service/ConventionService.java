@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 import gestionCommerciale.convert.ConventionConvert;
 import gestionCommerciale.dto.ConventionDto;
+import gestionCommerciale.entity.Application;
+import gestionCommerciale.entity.Client;
 import gestionCommerciale.entity.Convention;
+import gestionCommerciale.repository.ApplicationRepository;
+import gestionCommerciale.repository.ClientRepo;
 import gestionCommerciale.repository.ConventionRepository;
 
 @Service
@@ -19,8 +23,17 @@ public class ConventionService {
 
     private static final Logger logger = LoggerFactory.getLogger(ConventionService.class);
     
+    private final ConventionRepository conventionRepository;
+    private final ClientRepo clientRepo;
+    private final ApplicationRepository applicationRepo;
+    
     @Autowired
-    private ConventionRepository conventionRepository;
+    public ConventionService(ConventionRepository conventionRepository,ClientRepo clientRepo,ApplicationRepository applicationRepo) 
+    {
+        this.conventionRepository = conventionRepository;
+        this.clientRepo = clientRepo;
+        this.applicationRepo = applicationRepo;
+    }
     
     public List<Convention> getAllConventions() {
         logger.info("Fetching all conventions");
@@ -44,12 +57,28 @@ public class ConventionService {
     
     public ConventionDto save(ConventionDto conventionDto) {
         logger.info("Saving new convention: {}", conventionDto);
-        Convention convention = ConventionConvert.toEntity(conventionDto);
+
+        Client client = clientRepo.findById(conventionDto.getClientId())
+            .orElseThrow(() -> new RuntimeException("Client not found with ID: " + conventionDto.getClientId()));
+
+        Application application = applicationRepo.findById(conventionDto.getApplicationId())
+            .orElseThrow(() -> new RuntimeException("Application not found with ID: " + conventionDto.getApplicationId()));
+
+        Convention convention = Convention.builder()
+            .code(conventionDto.getCode())
+            .status(conventionDto.getStatus())
+            .startDate(conventionDto.getStartDate())
+            .endDate(conventionDto.getEndDate())
+            .archived(conventionDto.isArchived())
+            .client(client)
+            .application(application)
+            .build();
+
         Convention savedConvention = conventionRepository.save(convention);
         logger.info("Convention saved successfully with ID: {}", savedConvention.getId());
+
         return ConventionConvert.toDto(savedConvention);
     }
-    
     public void delete(Long id) {
         logger.warn("Deleting convention with ID: {}", id);
         conventionRepository.deleteById(id);
