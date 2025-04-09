@@ -23,5 +23,4 @@ public class ConventionDto {
 	 private boolean archived;
 	 private Integer clientId;
 	 private Long applicationId;
-	 
 }

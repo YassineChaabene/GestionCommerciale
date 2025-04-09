@@ -7,9 +7,13 @@ import { PagesRoutingModule } from './pages-routing.module';
 @NgModule({
   declarations: [
 
+<<<<<<< Updated upstream
   
    
   
+=======
+
+>>>>>>> Stashed changes
   ],
   imports: [
     CommonModule,

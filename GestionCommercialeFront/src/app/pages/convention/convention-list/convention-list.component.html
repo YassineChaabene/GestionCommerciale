@@ -1,99 +1,100 @@
-<div class="">
-    <app-menu-ui></app-menu-ui>
-  
-    <div class="main-content">
-      <div class="header-container">
-        <h2 class="page-title">Convention List</h2>
-        <div class="button-group">
-          <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
-          <button routerLink="/conventions/add" class="btn btn-success add-button">➕ Add Convention</button>
-        </div>
+<div class="container">
+  <app-menu-ui></app-menu-ui>
+
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header-container">
+      <h2 class="page-title">Convention List</h2>
+      <div class="button-group">
+        <button class="btn btn-secondary back-button" routerLink="/menu">⬅ Back</button>
+        <button routerLink="/conventions/add" class="btn btn-success add-button">➕ Add Convention</button>
       </div>
-  
-      <!-- Filter -->
-      <div class="search-container">
-        <div class="dropdown">
-          <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            {{ selectedFilter }}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" (click)="setFilter('Code')">Code</a></li>
-            <li><a class="dropdown-item" (click)="setFilter('status')">Status</a></li>
-            <li><a class="dropdown-item" (click)="setFilter('application.name')">Application Name</a></li>
-            <li><a class="dropdown-item" (click)="setFilter('client.intutile')">Client Name</a></li>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="search-container">
+      <div class="dropdown">
+        <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          {{ selectedFilter }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="setFilter('code')">Code</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('status')">Status</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('application')">Application Name</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('client')">Client Name</a></li>
+        </ul>
+      </div>
+
+      <input type="text" class="search-input" placeholder="Search By {{ selectedFilter }}" [(ngModel)]="searchValue" (input)="applyFilter()" />
+      <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="container mt-4">
+      <div class="table-responsive">
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th (click)="sortTable('code')">Code</th>
+              <th (click)="sortTable('status')">Status</th>
+              <th (click)="sortTable('startDate')">Start Date</th>
+              <th (click)="sortTable('endDate')">End Date</th>
+              <th (click)="sortTable('application')">Application</th>
+              <th (click)="sortTable('client')">Client</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let convention of paginatedConventions()">
+              <td>{{ convention.code }}</td>
+              <td>{{ convention.status }}</td>
+              <td>{{ convention.startDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ convention.endDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                {{ isApplication(convention.application) ? convention.application.nom : 'N/A' }}
+              </td>
+              <td>
+                {{ isClient(convention.client) ? convention.client.intutile : 'N/A' }}
+              </td>
+              <td><button class="btn btn-warning">Edit</button></td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteConvention(convention.id!)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Section -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <label for="itemsPerPage">Show:</label>
+          <select id="itemsPerPage" class="form-select d-inline-block w-auto ms-2" [(ngModel)]="itemsPerPage" (ngModelChange)="changePageSize($event)">
+            <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+          </select>
+          conventions per page
+        </div>
+
+        <nav>
+          <ul class="pagination">
+            <!-- Previous Button -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+            </li>
+
+            <!-- Page Number Buttons -->
+            <li *ngFor="let page of totalPagesArray()" class="page-item" [class.active]="page === currentPage">
+              <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+            </li>
+
+            <!-- Next Button -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages()">
+              <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+            </li>
           </ul>
-        </div>
-  
-        <input type="text" class="search-input" placeholder="Search By {{ selectedFilter }}" [(ngModel)]="searchValue" (input)="applyFilter()" />
-        <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
-      </div>
-  
-      <!-- Table -->
-      <div class="container mt-4">
-        <div class="table-responsive">
-          <table class="table table-hover text-center">
-            <thead>
-              <tr>
-                <th (click)="sortTable('code')">Code</th>
-                <th (click)="sortTable('status')">Status</th>
-                <th (click)="sortTable('startDate')">Start Date</th>
-                <th (click)="sortTable('endDate')">End Date</th>
-                <th (click)="sortTable('application.name')">Application</th>
-                <th (click)="sortTable('client.intutile')">Client</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let convention of paginatedConventions()">
-                <td>{{ convention.code }}</td>
-                <td>{{ convention.status }}</td>
-                <td>{{ convention.startDate | date:'dd/MM/yyyy' }}</td>
-                <td>{{ convention.endDate | date:'dd/MM/yyyy'}}</td>
-                <td>{{ convention.application.nom }}</td>
-                <td>{{ convention.client.intutile }}</td>
-                <td><button class="btn btn-warning">Edit</button></td>
-                <td><button class="btn btn-danger">Delete</button></td>
-              </tr><!---->
-            </tbody>
-          </table>
-        </div>
-  
-        <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div>
-              <label for="itemsPerPage">Show:</label>
-              <select
-                id="itemsPerPage"
-                class="form-select d-inline-block w-auto ms-2"
-                [(ngModel)]="itemsPerPage"
-                (ngModelChange)="changePageSize($event)"
-              >
-                <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
-              </select>
-              clients per page
-            </div>
-    
-            <nav>
-              <ul class="pagination">
-                <!-- Previous Button -->
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                  <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-                </li>
-    
-                <!-- Page Number Buttons -->
-                <li *ngFor="let page of totalPagesArray()" class="page-item" [class.active]="page === currentPage">
-                  <a class="page-link" (click)="changePage(page)">{{ page }}</a>
-                </li>
-    
-                <!-- Next Button -->
-                <li class="page-item" [class.disabled]="currentPage === totalPages()">
-                  <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+        </nav>
       </div>
     </div>
   </div>
-  
+</div>

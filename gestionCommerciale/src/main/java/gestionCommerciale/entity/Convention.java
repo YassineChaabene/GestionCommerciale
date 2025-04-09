@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Table(name ="conventions")
 @Builder
 @Entity
@@ -39,5 +40,4 @@ public class Convention {
 
     @ManyToOne
     private Application application;
-
 }

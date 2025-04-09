@@ -21,11 +21,12 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component'
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 
-
+import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
 
 @NgModule({
 
   declarations: [
+    ConventionFormComponent,
     UserListComponent,
     UserUpdateComponent,
     UserFormComponent,

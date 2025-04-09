@@ -12,7 +12,11 @@ import { AppUpdateComponent } from './pages/Applications/app-update/app-update.c
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
+<<<<<<< Updated upstream
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
+=======
+import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -26,6 +30,7 @@ const routes: Routes = [
    {path:'application-update/:id', component: AppUpdateComponent },
    { path: 'users', component: UserListComponent },
    { path: 'conventions', component: ConventionListComponent },
+   { path: 'conventions/add', component: ConventionFormComponent },
    { path: 'users/add', component: UserFormComponent },
    {path: 'user-update/:id', component: UserUpdateComponent },
 ];
