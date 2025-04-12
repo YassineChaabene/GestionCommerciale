@@ -20,7 +20,7 @@ import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component'
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
-
+import { NavbarComponent } from './pages/navbar/navbar.component';
 import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
 
 @NgModule({
@@ -39,7 +39,7 @@ import { ConventionFormComponent } from './pages/convention/convention-form/conv
     AppFormComponent,
     AppUpdateComponent,
     MenuUiComponent,
-    ConventionListComponent,
+    ConventionListComponent,NavbarComponent
   ],
   imports: [
     BrowserModule,

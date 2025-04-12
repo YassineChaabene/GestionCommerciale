@@ -53,29 +53,42 @@ export class ConventionFormComponent implements OnInit {
       this.applications = data;
     });
   }
-  
   submitForm(): void {
     if (this.conventionForm.valid) {
-      const formData = {
-        code: this.conventionForm.value.code,
-        status: this.conventionForm.value.status,
-        startDate: new Date(this.conventionForm.value.startDate).toISOString().split('T')[0],
-        endDate: this.conventionForm.value.endDate 
-          ? new Date(this.conventionForm.value.endDate).toISOString().split('T')[0]
-          : '',
-        client: { id: this.conventionForm.value.clientId },  // Only store ID
-        application: { id: this.conventionForm.value.applicationId }  // Only store ID
-      };
-
-      console.log('Submitting:', formData); // Debugging
-
-      this.conventionService.addConvention(formData).subscribe({
-        next: () => {
-          this.successMessage = 'Convention added successfully!';
-          this.conventionForm.reset();
-        },
-        error: (err) => console.error('Error adding convention:', err)
-      });
+      const clientId = this.conventionForm.value.clientId;
+      const applicationId = this.conventionForm.value.applicationId;
+      console.log(clientId)
+      console.log(applicationId)
+      // Find the full Client and Application objects using the IDs
+      
+      if (clientId && applicationId) {
+        const formData: Convention = {
+          code: this.conventionForm.value.code,
+          status: this.conventionForm.value.status,
+          startDate: new Date(this.conventionForm.value.startDate).toISOString().split('T')[0],
+          endDate: this.conventionForm.value.endDate 
+            ? new Date(this.conventionForm.value.endDate).toISOString().split('T')[0]
+            : undefined,
+          archived: false,  // Set default value
+          client: clientId,
+          application: applicationId
+        };
+  
+        console.log('📤 Sending data:', JSON.stringify(formData, null, 2)); // Debugging
+  
+        this.conventionService.addConvention(formData).subscribe({
+          next: () => {
+            this.successMessage = 'Convention added successfully!';
+            this.conventionForm.reset();
+          },
+          error: (err) => {
+            console.error('❌ Error adding convention:', err);
+          }
+        });
+      } else {
+        console.error("❌ Invalid client or application selection.");
+      }
     }
   }
+  
 }

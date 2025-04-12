@@ -1,0 +1,23 @@
+<div class="navbar">
+    <div class="nav-right">
+      
+        <div class="dropdown">
+            <div class="profile-pic" (click)="toggleDropdown()">
+                <!-- Display first two letters of user's name -->
+                {{ getInitials() }}
+            </div>
+            <div class="dropdown-menu" [ngClass]="{ 'show': showDropdown }">
+              <a href="#">Your Profile</a>
+              <a href="#">Settings</a>
+              <a routerLink="/auth/login">Sign out</a>
+            </div>
+          </div>
+          
+      </div>
+
+
+
+
+      
+  
+  

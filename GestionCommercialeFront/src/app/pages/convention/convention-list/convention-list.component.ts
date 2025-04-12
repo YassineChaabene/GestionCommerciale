@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ConventionService } from '../../../services/convention.service';
+import { ClientService } from '../../../services/client.service';
+import { ApplicationService } from '../../../services/application.service';
 import { Convention } from '../../../models/convention.model';
 import { Client } from '../../../models/client.model';
 import { Application } from '../../../models/application.model';
-
-function isApplication(application: Application | { id: number } | undefined): application is Application {
-  return !!application && 'nom' in application;
-}
-
-function isClient(client: Client | { id: number } | undefined): client is Client {
-  return !!client && 'intutile' in client;
-}
-
 
 @Component({
   selector: 'app-convention-list',
@@ -20,72 +13,85 @@ function isClient(client: Client | { id: number } | undefined): client is Client
   styleUrls: ['./convention-list.component.css']
 })
 export class ConventionListComponent implements OnInit {
-  isApplication(application: Application | { id: number } | undefined): application is Application {
-    return !!application && 'nom' in application;
-  }
-
-  /** Type guard for Client */
-  isClient(client: Client | { id: number } | undefined): client is Client {
-    return !!client && 'intutile' in client;
-  }
-  conventions: Convention[] = [];
-  filteredConventions: Convention[] = [];
+  conventions: (Convention & { clientName: string, applicationName: string })[] = []; // Add extra properties to Convention type
+  filteredConventions: any[] = [];
+  clients: Client[] = [];
+  applications: Application[] = [];
   searchValue: string = '';
   selectedFilter: string = 'code';
   itemsPerPage: number = 5;
   currentPage: number = 1;
-  sortColumn: keyof Convention | null = null;
+  sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
-
   pageSizeOptions: number[] = [5, 10, 20];
 
-  constructor(private conventionService: ConventionService) {}
+  constructor(
+    private conventionService: ConventionService,
+    private clientService: ClientService,
+    private applicationService: ApplicationService
+  ) {}
 
   ngOnInit(): void {
-    this.conventionService.getAllConventions().subscribe(data => {
-      this.conventions = data;
-      this.filteredConventions = [...data];
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    this.conventionService.getAllConventions().subscribe(conventions => {
+      this.clientService.getAllClients().subscribe(clients => {
+        this.applicationService.getAllApplications().subscribe(applications => {
+          this.clients = clients;
+          this.applications = applications;
+
+          // Dynamically map clientName and applicationName to the conventions
+          this.conventions = conventions.map(convention => ({
+            ...convention,
+            clientName: this.clients.find(c => c.id === convention.client.id)?.intutile || 'Unknown',
+            applicationName: this.applications.find(a => a.id === convention.application.id)?.nom || 'Unknown'
+          }) as Convention & { clientName: string, applicationName: string }); // Use type assertion here
+
+          // Filter conventions when data is fetched
+          this.filteredConventions = this.filterConventions(); // Initialize the filtered conventions
+        });
+      });
     });
   }
 
-  /** Sets the selected filter for searching */
   setFilter(filter: string): void {
     this.selectedFilter = filter;
-    this.applyFilter();
+    this.currentPage = 1; // Reset to the first page when applying filter
+    this.filteredConventions = this.filterConventions(); // Apply the filter immediately
   }
 
-  /** Clears the search input and resets filters */
   clearFilter(): void {
     this.searchValue = '';
-    this.applyFilter();
+    this.filteredConventions = this.filterConventions(); // Reset the filter
   }
-
-  /** Filters the conventions list based on user input */
   applyFilter(): void {
+    this.filteredConventions = this.filterConventions();  // Reapply filter whenever the search value changes
+  }
+  
+
+  filterConventions(): any[] {
     const value = this.searchValue.toLowerCase();
-    this.filteredConventions = this.conventions.filter(convention => {
-      switch (this.selectedFilter) {
-        case 'code':
-          return convention.code?.toLowerCase().includes(value);
-        case 'status':
-          return convention.status?.toLowerCase().includes(value);
-        case 'application':
-          return isApplication(convention.application) 
-            ? convention.application.nom?.toLowerCase().includes(value) 
-            : false;
-        case 'client':
-          return isClient(convention.client) 
-            ? convention.client.intutile?.toLowerCase().includes(value) 
-            : false;
-        default:
-          return true;
+
+    return this.conventions.filter(convention => {
+      let fieldValue = '';
+
+      // Handle specific fields for clientName and applicationName
+      if (this.selectedFilter === 'clientId') {
+        fieldValue = convention.clientName?.toLowerCase() || '';
+      } else if (this.selectedFilter === 'applicationId') {
+        fieldValue = convention.applicationName?.toLowerCase() || '';
+      } else {
+        // For other filters like code, status, etc.
       }
+
+      // Return true if the field value contains the search input (case-insensitive)
+      return fieldValue.includes(value);
     });
-    this.currentPage = 1;
   }
 
-  /** Sorts the table dynamically */
-  sortTable(column: keyof Convention): void {
+  sortTable(column: string): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
@@ -96,48 +102,39 @@ export class ConventionListComponent implements OnInit {
     this.filteredConventions.sort((a, b) => {
       const valueA = (a[column] || '').toString().toLowerCase();
       const valueB = (b[column] || '').toString().toLowerCase();
-      
-      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
-      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
-      return 0;
+      return this.sortDirection === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
     });
   }
 
-  /** Returns the paginated list of conventions */
-  paginatedConventions(): Convention[] {
+  paginatedConventions(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredConventions.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  /** Changes the number of items per page */
   changePageSize(size: number): void {
     this.itemsPerPage = size;
     this.currentPage = 1;
   }
 
-  /** Changes the current page */
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage = page;
     }
   }
 
-  /** Returns total number of pages */
   totalPages(): number {
     return Math.ceil(this.filteredConventions.length / this.itemsPerPage);
   }
 
-  /** Returns an array of page numbers for pagination */
   totalPagesArray(): number[] {
     return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
   }
 
-  /** Deletes a convention and updates the list */
   deleteConvention(id: number): void {
     if (confirm('Are you sure you want to delete this Convention?')) {
       this.conventionService.deleteConvention(id).subscribe(() => {
         this.conventions = this.conventions.filter(convention => convention.id !== id);
-        this.filteredConventions = this.filteredConventions.filter(convention => convention.id !== id);
+        this.filteredConventions = [...this.conventions]; // Update filtered conventions
       });
     }
   }

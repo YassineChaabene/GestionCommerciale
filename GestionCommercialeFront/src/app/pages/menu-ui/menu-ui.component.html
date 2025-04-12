@@ -1,6 +1,10 @@
-<!-- Sidebar -->
-<div class="sidebar" 
-[class.collapsed]="isSidebarCollapsed">
+<div class="sidebar">
+  <!-- Logo Section -->
+   
+  <div class="logo-container">
+    <img src="../../../assets/logo.png" alt="Logo" class="sidebar-logo" />
+  </div>
+
   <ul class="nav flex-column">
     <!-- Accueil -->
     <li class="nav-item">
@@ -8,7 +12,7 @@
         <div class="icon-container">
           <i class="fas fa-home"></i>
         </div>
-        <span *ngIf="!isSidebarCollapsed">Accueil</span>
+        <span style="font-size: 18px;">Accueil</span>
       </a>
     </li>
 
@@ -18,7 +22,7 @@
         <div class="icon-container">
           <i class="fas fa-users"></i>
         </div>
-        <span *ngIf="!isSidebarCollapsed">Clients</span>
+        <span  style="font-size: 18px;">Clients</span>
       </a>
     </li>
 
@@ -28,33 +32,30 @@
         <div class="icon-container">
           <i class="fas fa-mobile-alt"></i>
         </div>
-        <span *ngIf="!isSidebarCollapsed">Applications</span>
+        <span  style="font-size: 18px;">Applications</span>
       </a>
     </li>
+
+    <!-- Conventions -->
     <li class="nav-item">
       <a class="nav-link" routerLink="/conventions">
         <div class="icon-container">
           <i class="bi bi-file-earmark-spreadsheet"></i>
-
         </div>
-        <span *ngIf="!isSidebarCollapsed">Conventions</span>
+        <span  style="font-size: 18px;">Conventions</span>
       </a>
     </li>
-    <li class="nav-item" *ngIf="role ==='ADMIN'">
+
+    <!-- Users (Visible only for ADMIN role) -->
+    <li class="nav-item" *ngIf="role === 'ADMIN'">
       <a class="nav-link" routerLink="/users">
         <div class="icon-container">
           <i class="fas fa-users"></i>
         </div>
-        <span *ngIf="!isSidebarCollapsed">Users</span>
+        <span style="font-size: 18px;">Users</span>
       </a>
     </li>
 
-    <!-- Toggle Button -->
-    <li class="nav-item toggle-item">
-      <div class="toggle-button" (click)="toggleSidebar()">
-        <i *ngIf="isSidebarCollapsed" class="fas fa-angle-right"></i>
-        <i *ngIf="!isSidebarCollapsed" class="fas fa-angle-left"></i>
-      </div>
-    </li>
+    
   </ul>
 </div>

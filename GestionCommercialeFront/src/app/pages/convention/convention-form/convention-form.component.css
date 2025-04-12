@@ -1,25 +1,25 @@
 .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-  }
-  .back-button:hover {
-    background-color: #5a6268;
-    transform: scale(1.05);
-  }
-  .button-group button {
-    font-size: 16px;
-    padding: 12px 20px; /* Same padding for both */
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    min-width: 160px; /* Ensure equal width */
-  }
-    
-    .down{
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: 10px;
-  }
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.back-button:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+.button-group button {
+  font-size: 16px;
+  padding: 12px 20px; /* Same padding for both */
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  min-width: 160px; /* Ensure equal width */
+}
+  
+  .down{
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 10px;
+}

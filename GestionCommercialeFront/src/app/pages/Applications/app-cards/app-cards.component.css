@@ -79,7 +79,7 @@ body {
 
 
 .filter-btn {
-  background-color: #8a0f62;
+  background-color: #004826;
   color: white;
   border: none;
   border-radius: 50px;
@@ -90,7 +90,7 @@ body {
 }
 
 .filter-btn:hover {
-  background-color: #6d0d4f;
+  background-color: #004826;
 }
 
 .search-input {
@@ -119,7 +119,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #8a0f62;
+  color:#004826;
   padding: 5px;
 }
 
@@ -140,8 +140,8 @@ body {
 }
 
 th {
-  background-color: #8a0f62;
-  color: white;
+
+
   padding: 12px;
   cursor: pointer;
   user-select: none;
@@ -184,82 +184,4 @@ tr:nth-child(even) {
 
 .delete-button:hover {
   background-color: #c82333;
-}
-/* Style for the price filter container */
-.price-filter {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 20px;
-}
-
-/* Style for the label */
-.price-filter label {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-/* Style for the input range (slider) */
-
-
-/* Slider thumb (the handle) */
-#priceRange::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background-color: #4caf50; /* Green color */
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-/* Slider thumb (hover effect) */
-#priceRange::-webkit-slider-thumb:hover {
-  background-color: #45a049; /* Slightly darker green */
-}
-
-/* Firefox styles for the slider */
-#priceRange::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background-color: #4caf50;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-#priceRange::-moz-range-thumb:hover {
-  background-color: #45a049;
-}
-
-/* For Internet Explorer */
-#priceRange::-ms-thumb {
-  width: 20px;
-  height: 20px;
-  background-color: #4caf50;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-#priceRange::-ms-thumb:hover {
-  background-color: #45a049;
-}
-
-/* Styling for the range value (optional) */
-.price-filter input[type="range"] {
-  margin-top: 10px;
-}
-
-/* Optional styling for the value text, if needed */
-.price-filter span {
-  font-size: 14px;
-  margin-top: 10px;
-  color: #555;
 }

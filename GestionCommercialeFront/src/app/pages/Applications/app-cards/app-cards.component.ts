@@ -14,6 +14,11 @@ export class AppCardsComponent {
   priceFilter: number = 0; // Valeur initiale du slider
   maxPrice: number = 0; 
   constructor(private applicationService: ApplicationService) {}
+   // Pagination
+   pageSizeOptions: (number | string)[] = [5, 10, 20, 'All'];
+   itemsPerPage: number = 5; // Default is 5
+   currentPage: number = 1;
+ 
   
   searchValue: string = '';
   ngOnInit(): void {
@@ -73,6 +78,40 @@ export class AppCardsComponent {
           });
         }
       }
+      paginatedApplication(): Application[] {
+            // If itemsPerPage matches the total filtered clients, show all
+            // (This happens if the user selects "All")
+            if (this.itemsPerPage === this.filteredApplications.length) {
+              return this.filteredApplications;
+            }
+        
+            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+            return this.filteredApplications.slice(startIndex, startIndex + this.itemsPerPage);
+          }
+        
+          changePage(page: number): void {
+            if (page >= 1 && page <= this.totalPages()) {
+              this.currentPage = page;
+            }
+          }
+        
+          totalPages(): number {
+            return Math.ceil(this.filteredApplications.length / this.itemsPerPage);
+          }
+        
+          totalPagesArray(): number[] {
+            return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
+          }
+        
+          changePageSize(size: number | string): void {
+            if (size === 'All') {
+              // Show all clients by setting itemsPerPage = filteredClients.length
+              this.itemsPerPage = this.filteredApplications.length;
+            } else {
+              this.itemsPerPage = Number(size);
+            }
+            this.currentPage = 1; // Reset to first page
+          }
 
   
 }

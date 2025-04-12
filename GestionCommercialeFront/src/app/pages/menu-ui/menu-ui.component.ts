@@ -8,12 +8,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./menu-ui.component.css']
 })
 export class MenuUiComponent {
-  isSidebarCollapsed = false; // Tracks whether the sidebar is collapsed
+  
 constructor( private authservice:AuthService ){}
   userEmail: string | null = null;
   role: string | null = localStorage.getItem('role');
   
-  toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
+  
 }
