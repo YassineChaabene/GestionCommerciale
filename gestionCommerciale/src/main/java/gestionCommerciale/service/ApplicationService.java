@@ -40,20 +40,40 @@ public class ApplicationService {
             return null;
         }
     }
+    public ApplicationDto getApplicationByUuid(String uuid) {
+        logger.info("Fetching application with UUID: {}", uuid);
+        Optional<Application> application = appRepo.findByUuid(uuid);
+        
+        if (application.isPresent()) {
+            logger.info("Application found: {}", application.get());
+            return ApplicationConvert.toDto(application.get());
+        } else {
+            logger.warn("Application not found with UUID: {}", uuid);
+            return null;
+        }
+    }
+
     
     public ApplicationDto save(ApplicationDto appDto) {
-    	logger.info("Saving new client: {}", appDto);
+    	logger.info("Saving new application: {}", appDto);
     	Application app = ApplicationConvert.toEntity(appDto);
     	Application savedApp = appRepo.save(app);
     	logger.info("Application saved successfully with ID: {}", savedApp.getId());
     	return ApplicationConvert.toDto(savedApp);
     }
     
-    public void delete(Long id) {
-        logger.warn("Deleting application with ID: {}", id);
-        appRepo.deleteById(id);
-        logger.info("Application with ID {} deleted successfully", id);
+    public void delete(String uuid) {
+        logger.warn("Deleting application with UUID: {}", uuid);
+
+        appRepo.findByUuid(uuid).ifPresentOrElse(application -> {
+            appRepo.deleteById(application.getId());
+            logger.info("Application with UUID {} deleted successfully", uuid);
+        }, () -> {
+            logger.error("Application not found with UUID: {}", uuid);
+            throw new RuntimeException("Application not found with UUID: " + uuid);
+        });
     }
+
     
     public ApplicationDto updateApplication(ApplicationDto appDto) {
         logger.info("Updating application: {}", appDto);

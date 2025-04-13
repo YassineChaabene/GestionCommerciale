@@ -57,10 +57,16 @@ public class ClientService {
         return ClientConvert.toDto(savedClient);
     }
 
-    public void delete(Integer id) {
-        logger.warn("Deleting client with ID: {}", id);
-        clientRepo.deleteById(id);
-        logger.info("Client with ID {} deleted successfully", id);
+    public void delete(String uuid) {
+        logger.warn("Deleting client with UUID: {}", uuid);
+        
+        clientRepo.findByUuid(uuid).ifPresentOrElse(client -> {
+            clientRepo.deleteById(client.getId());
+            logger.info("Client with UUID {} deleted successfully", uuid);
+        }, () -> {
+            logger.error("Client not found with UUID: {}", uuid);
+            throw new RuntimeException("Client not found with UUID: " + uuid);
+        });
     }
 
     public ClientDto updateClient(ClientDto clientDto) {

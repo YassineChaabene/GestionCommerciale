@@ -34,8 +34,8 @@ public class ClientController {
     }
 
     @GetMapping("/delete-client")
-    public ResponseEntity<Void> delete(@RequestParam Integer id) {
-        clientService.delete(id);
+    public ResponseEntity<Void> delete(@RequestParam String uuid) {
+        clientService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 

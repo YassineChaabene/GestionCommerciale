@@ -3,6 +3,7 @@ package gestionCommerciale.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +19,15 @@ public class ConventionController {
     private ConventionService conventionService;
 
     @GetMapping("/get-convention")
-    public ResponseEntity<ConventionDto> getConvention(@RequestParam Long id) {
-        ConventionDto conventionDto = conventionService.getConvention(id);
+    public ResponseEntity<ConventionDto> getConvention(@RequestParam String uuid) {
+        ConventionDto conventionDto = conventionService.getConventionByUuid(uuid);
         if (conventionDto != null) {
             return ResponseEntity.ok(conventionDto);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @GetMapping("/get-all-conventions")
     public ResponseEntity<List<Convention>> getAllConventions() {
@@ -50,12 +52,12 @@ public class ConventionController {
     @PostMapping("/save-convention")
     public ResponseEntity<ConventionDto> save(@RequestBody ConventionDto conventionDto) {
         ConventionDto savedConvention = conventionService.save(conventionDto);
-        return ResponseEntity.ok(savedConvention);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedConvention);
     }
 
     @GetMapping("/delete-convention")
-    public ResponseEntity<Void> delete(@RequestParam Long id) {
-        conventionService.delete(id);
+    public ResponseEntity<Void> delete(@RequestParam String uuid) {
+        conventionService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 

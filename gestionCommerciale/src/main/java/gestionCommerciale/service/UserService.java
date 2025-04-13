@@ -37,6 +37,16 @@ public class UserService {
     public User getUser(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
+    public UserDto getUserByUuid(String uuid) {
+        logger.info("Fetching user with UUID: {}", uuid);
+        return userRepository.findByUuid(uuid)
+                .map(UserConvert::toDto)
+                .orElseThrow(() -> {
+                    logger.warn("User not found with UUID: {}", uuid);
+                    return new RuntimeException("User not found with UUID: " + uuid);
+                });
+    }
+
     
     public List<User> getAllUsers() {
     	logger.info("Fetching all users");
@@ -52,12 +62,18 @@ public class UserService {
         return UserConvert.toDto(savedUser);  
     }
 
-    public void deleteUser(Integer id) {
-    	logger.warn("Deleting user with ID: {}", id);
-        userRepository.deleteById(id);
-        logger.info("user with ID {} deleted successfully", id);
+    public void deleteUser(String uuid) {
+        logger.warn("Deleting user with UUID: {}", uuid);
 
+        userRepository.findByUuid(uuid).ifPresentOrElse(user -> {
+            userRepository.deleteById(user.getId());
+            logger.info("User with UUID {} deleted successfully", uuid);
+        }, () -> {
+            logger.error("User not found with UUID: {}", uuid);
+            throw new RuntimeException("User not found with UUID: " + uuid);
+        });
     }
+
     
     public UserDto updateUser(UserDto userDto) {
         logger.info("Updating user: {}", userDto);

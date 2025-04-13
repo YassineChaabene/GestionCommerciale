@@ -49,8 +49,8 @@ public class ApplicationController {
     }
 
     @GetMapping("/delete-application")
-    public ResponseEntity<Void> delete(@RequestParam Long id) {
-        appService.delete(id);
+    public ResponseEntity<Void> delete(@RequestParam String uuid ) {
+        appService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 

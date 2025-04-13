@@ -42,6 +42,16 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/get-user-by-uuid")
+    public ResponseEntity<UserDto> getUserByUuid(@RequestParam String uuid) {
+        try {
+            UserDto userDto = userService.getUserByUuid(uuid);
+            return ResponseEntity.ok(userDto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     
     @PostMapping("/save-user")
     public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
@@ -51,8 +61,8 @@ public class UserController {
     
     
     @GetMapping("/delete-user")
-    public ResponseEntity<Void> delete(@RequestParam Integer id) {
-        userService.deleteUser(id);
+    public ResponseEntity<Void> delete(@RequestParam String uuid) {
+        userService.deleteUser(uuid);
         return ResponseEntity.noContent().build();
     }
     

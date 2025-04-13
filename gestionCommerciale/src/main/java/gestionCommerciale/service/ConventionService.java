@@ -55,6 +55,19 @@ public class ConventionService {
         }
     }
     
+    public ConventionDto getConventionByUuid(String uuid) {
+        logger.info("Fetching convention with UUID: {}", uuid);
+        Optional<Convention> convention = conventionRepository.findByUuid(uuid);
+        
+        if (convention.isPresent()) {
+            logger.info("Convention found: {}", convention.get());
+            return ConventionConvert.toDto(convention.get());
+        } else {
+            logger.warn("Convention not found with UUID: {}", uuid);
+            return null;
+        }
+    }
+    
     public ConventionDto save(ConventionDto conventionDto) {
         logger.info("Saving new convention: {}", conventionDto);
 
@@ -79,10 +92,16 @@ public class ConventionService {
 
         return ConventionConvert.toDto(savedConvention);
     }
-    public void delete(Long id) {
-        logger.warn("Deleting convention with ID: {}", id);
-        conventionRepository.deleteById(id);
-        logger.info("Convention with ID {} deleted successfully", id);
+    public void delete(String uuid) {
+        logger.warn("Deleting convention with UUID: {}", uuid);
+
+        conventionRepository.findByUuid(uuid).ifPresentOrElse(convention -> {
+            conventionRepository.deleteById(convention.getId());
+            logger.info("Convention with UUID {} deleted successfully", uuid);
+        }, () -> {
+            logger.error("Convention not found with UUID: {}", uuid);
+            throw new RuntimeException("Convention not found with UUID: " + uuid);
+        });
     }
     
     public ConventionDto updateConvention(ConventionDto conventionDto) {
