@@ -22,6 +22,7 @@ import { ConventionListComponent } from './pages/convention/convention-list/conv
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
+import { FactureListComponent } from './pages/Factures/facture-list/facture-list.component';
 
 @NgModule({
 
@@ -39,7 +40,7 @@ import { ConventionFormComponent } from './pages/convention/convention-form/conv
     AppFormComponent,
     AppUpdateComponent,
     MenuUiComponent,
-    ConventionListComponent,NavbarComponent
+    ConventionListComponent,NavbarComponent,FactureListComponent
   ],
   imports: [
     BrowserModule,
