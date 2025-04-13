@@ -25,19 +25,34 @@
       <input type="date" id="endDate" class="form-control" formControlName="endDate" />
     </div>
 
-    <div class="form-group">
-      <label for="clientId">Client</label>
-      <select id="clientId" class="form-control" formControlName="clientId">
-        <option *ngFor="let client of clients" [value]="client.id">{{ client.intutile }}</option>
-      </select>
-    </div>
+    <!-- Client avec datalist -->
+<div class="form-group">
+  <label for="clientId">Client</label>
+  <input 
+    list="clientsList"
+    id="clientId"
+    class="form-control"
+    formControlName="clientId"
+    placeholder="Choisir un client">
+  <datalist id="clientsList">
+    <option *ngFor="let client of clients" [value]="client.intutile"></option>
+  </datalist>
+</div>
 
-    <div class="form-group">
-      <label for="applicationId">Application</label>
-      <select id="applicationId" class="form-control" formControlName="applicationId">
-        <option *ngFor="let app of applications" [value]="app.id">{{ app.nom }}</option>
-      </select>
-    </div>
+<!-- Application avec datalist -->
+<div class="form-group">
+  <label for="applicationId">Application</label>
+  <input 
+    list="applicationsList"
+    id="applicationId"
+    class="form-control"
+    formControlName="applicationId"
+    placeholder="Choisir une application">
+  <datalist id="applicationsList">
+    <option *ngFor="let app of applications" [value]="app.nom"></option>
+  </datalist>
+</div>
+
 
     <div class="down">
       <button type="submit" class="btn btn-primary" [disabled]="conventionForm.invalid">Add Convention</button>
