@@ -15,7 +15,6 @@ import { ConventionListComponent } from './pages/convention/convention-list/conv
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 
 import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
-import { FactureListComponent } from './pages/Factures/facture-list/facture-list.component';
 
 
 const routes: Routes = [
@@ -32,7 +31,7 @@ const routes: Routes = [
    { path: 'conventions', component: ConventionListComponent },
    { path: 'conventions/add', component: ConventionFormComponent },
    { path: 'users/add', component: UserFormComponent },
-   {path: 'user-update/:id', component: UserUpdateComponent },{path:'factures',component:FactureListComponent}
+   {path: 'user-update/:id', component: UserUpdateComponent },
 ];
 
 @NgModule({

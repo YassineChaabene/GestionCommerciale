@@ -13,7 +13,7 @@ export class ClientListComponent implements OnInit {
   filteredClients: Client[] = [];
 
   searchValue: string = '';
-  selectedFilter: string = 'code';
+  selectedFilter: string = 'id';
 
   sortColumn: string = '';
   sortDirection: boolean = true; // true = ascending, false = descending
@@ -56,6 +56,8 @@ export class ClientListComponent implements OnInit {
 
     this.filteredClients = this.clients.filter(client => {
       switch (this.selectedFilter) {
+        case 'id':
+          return client.id?.toString().includes(value);
         case 'email':
           return client.email.toLowerCase().includes(value);
         case 'intutile':
@@ -63,10 +65,6 @@ export class ClientListComponent implements OnInit {
           return client.intutile?.toLowerCase().includes(value);
           case 'code':
             return client.code?.toString().includes(value);
-            case 'adresse':
-              return client.adresse?.toString().includes(value);
-              case 'telephone':
-                return client.telephone?.toString().includes(value);
           default:
             return false;
         }
