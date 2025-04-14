@@ -14,10 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConventionDto {
-	private String uuid;
+	 private String uuid;
 	 private Long id;
 	 private String code;
-	 private String title;
 	 private String status;
 	 private LocalDate startDate;
 	 private LocalDate endDate;

@@ -11,6 +11,7 @@ public class ConventionConvert {
             return null;
         }
         return ConventionDto.builder()
+        		.uuid(entity.getUuid())
                 .id(entity.getId())
                 .code(entity.getCode())
                 .status(entity.getStatus())
@@ -28,6 +29,7 @@ public class ConventionConvert {
             return null;
         }
         return Convention.builder()
+        		.uuid(conventionDto.getUuid())
                 .id(conventionDto.getId())
                 .code(conventionDto.getCode())
                 .status(conventionDto.getStatus())

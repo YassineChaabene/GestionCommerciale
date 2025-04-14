@@ -18,7 +18,7 @@
           {{ selectedFilter }}
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
+          
           <li><a class="dropdown-item" (click)="setFilter('email')">Email</a></li>
           <li><a class="dropdown-item" (click)="setFilter('nom')">Name</a></li>
           <li><a class="dropdown-item" (click)="setFilter('role')">Role</a></li>
@@ -50,11 +50,7 @@
         <table class="table table-hover text-center">
           <thead>
             <tr>
-              <th scope="col"
-                  (click)="sortTable('id')"
-                  [class.text-primary]="sortColumn === 'id'">
-                ID
-              </th>
+              
               <th scope="col"
                   (click)="sortTable('email')"
                   [class.text-primary]="sortColumn === 'email'">
@@ -79,7 +75,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let user of paginatedUsers()">
-              <td>{{ user.id }}</td>
+              
               <td>{{ user.email }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.role }}</td>

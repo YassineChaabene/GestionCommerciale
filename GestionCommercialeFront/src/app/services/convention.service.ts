@@ -17,11 +17,14 @@ export class ConventionService {
     deleteConvention(uuid: string): Observable<void> {
       return this.http.get<void>(`${this.apiUrl}/conventions/delete-convention?uuid=${uuid}`);
     }
-     updateconvention(convention: Convention): Observable<Convention> {
+     updateConvention(convention:ConventionRequest): Observable<Convention> {
         return this.http.post<Convention>(`${this.apiUrl}/conventions/update-convention`, convention );
       }
       addConvention(data: ConventionRequest): Observable<Convention> {
         return this.http.post<Convention>(`${this.apiUrl}/conventions/save-convention`, data);
+      }
+    getConventionByUuid(uuid: string): Observable<Convention> {
+        return this.http.get<Convention>(`${this.apiUrl}/conventions/get-convention?uuid=${uuid}`);
       }
       
 }

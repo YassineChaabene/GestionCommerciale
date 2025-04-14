@@ -10,5 +10,5 @@
     archived: boolean; 
     client: Client;  
     application: Application;
-    uuid: string;  
+    uuid?: string;  
   }

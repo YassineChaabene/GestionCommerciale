@@ -14,6 +14,7 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
+import { ConventionUpdateComponent } from './pages/convention/convention-update/convention-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
    { path: 'conventions/add', component: ConventionFormComponent },
    { path: 'users/add', component: UserFormComponent },
    {path: 'user-update/:uuid', component: UserUpdateComponent },
+   { path: 'convention-update/:uuid', component: ConventionUpdateComponent}
 ];
 
 @NgModule({

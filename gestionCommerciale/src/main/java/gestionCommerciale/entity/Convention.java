@@ -1,7 +1,6 @@
 package gestionCommerciale.entity;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.Column;

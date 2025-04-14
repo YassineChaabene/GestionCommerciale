@@ -57,9 +57,9 @@
               <td>{{ convention.status }}</td>
               <td>{{ convention.startDate | date:'dd/MM/yyyy' }}</td>
               <td>{{ convention.endDate | date:'dd/MM/yyyy'}}</td>
-              <td>{{ convention.application.nom }}</td>
+              <td>{{ convention.application.intitule }}</td>
               <td>{{ convention.client.intutile }}</td>
-              <td><button class="btn btn-warning">Edit</button></td>
+              <td><button class="btn btn-warning" [routerLink]="['/convention-update', convention.uuid]">Edit</button></td>
               <td><button class="btn btn-danger" (click)="deleteConvention(convention.uuid)">Delete</button></td>
             </tr>
           </tbody>

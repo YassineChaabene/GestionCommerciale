@@ -21,10 +21,12 @@ import { MenuUiComponent } from './pages/menu-ui/menu-ui.component';
 import { ConventionListComponent } from './pages/convention/convention-list/convention-list.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
+import { ConventionUpdateComponent } from './pages/convention/convention-update/convention-update.component';
 
 @NgModule({
 
   declarations: [
+    ConventionUpdateComponent,
     ConventionFormComponent,
     UserListComponent,
     UserFormComponent,

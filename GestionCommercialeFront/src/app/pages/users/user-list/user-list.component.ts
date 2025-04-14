@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   filteredUsers: User[] = [];
 
   searchValue: string = '';
-  selectedFilter: string = 'id';
+  selectedFilter: string = 'email';
 
   sortColumn: string = '';
   sortDirection: boolean = true; // true = ascending, false = descending
@@ -63,8 +63,7 @@ export class UserListComponent implements OnInit {
 
     this.filteredUsers = this.users.filter(user => {
       switch (this.selectedFilter) {
-        case 'id':
-          return user.id?.toString().includes(value);
+        
         case 'email':
           return user.email.toLowerCase().includes(value);
         case 'nom':

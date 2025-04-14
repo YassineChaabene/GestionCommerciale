@@ -107,14 +107,27 @@ public class ConventionService {
     public ConventionDto updateConvention(ConventionDto conventionDto) {
         logger.info("Updating convention: {}", conventionDto);
         Optional<Convention> conventionOpt = conventionRepository.findByUuid(conventionDto.getUuid());
-
+        
         if (conventionOpt.isPresent()) {
             Convention existingConvention = conventionOpt.get();
-            Convention updatedConvention = ConventionConvert.toEntity(conventionDto);
-            updatedConvention.setUuid(existingConvention.getUuid());
-            updatedConvention.setId(existingConvention.getId());
-
-            Convention savedConvention = conventionRepository.save(updatedConvention);
+            
+            // Fetch the client and application
+            Client client = clientRepo.findById(conventionDto.getClientId())
+                .orElseThrow(() -> new RuntimeException("Client not found with ID: " + conventionDto.getClientId()));
+            
+            Application application = applicationRepo.findById(conventionDto.getApplicationId())
+                .orElseThrow(() -> new RuntimeException("Application not found with ID: " + conventionDto.getApplicationId()));
+            
+            // Update the existing convention instead of creating a new one
+            existingConvention.setCode(conventionDto.getCode());
+            existingConvention.setStatus(conventionDto.getStatus());
+            existingConvention.setStartDate(conventionDto.getStartDate());
+            existingConvention.setEndDate(conventionDto.getEndDate());
+            existingConvention.setArchived(conventionDto.isArchived());
+            existingConvention.setClient(client);
+            existingConvention.setApplication(application);
+            
+            Convention savedConvention = conventionRepository.save(existingConvention);
             logger.info("Convention updated successfully: {}", savedConvention);
             return ConventionConvert.toDto(savedConvention);
         } else {

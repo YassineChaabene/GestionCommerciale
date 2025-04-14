@@ -16,10 +16,6 @@ public class ApplicationController {
 	@Autowired
 	private ApplicationService appService;
 	
-	@GetMapping("/test")
-    public String testEndpoint() {
-        return "ApplicationController is working!";
-    }
 	@GetMapping("/get-application")
 	public ResponseEntity<ApplicationDto> getApplication(@RequestParam String uuid){
 		ApplicationDto appDto= appService.getApplicationByUuid(uuid);
