@@ -106,19 +106,20 @@ public class ConventionService {
     
     public ConventionDto updateConvention(ConventionDto conventionDto) {
         logger.info("Updating convention: {}", conventionDto);
-        Optional<Convention> conventionOpt = conventionRepository.findById(conventionDto.getId());
+        Optional<Convention> conventionOpt = conventionRepository.findByUuid(conventionDto.getUuid());
 
         if (conventionOpt.isPresent()) {
             Convention existingConvention = conventionOpt.get();
             Convention updatedConvention = ConventionConvert.toEntity(conventionDto);
-            updatedConvention.setId(existingConvention.getId()); // Keep the same ID
+            updatedConvention.setUuid(existingConvention.getUuid());
+            updatedConvention.setId(existingConvention.getId());
 
             Convention savedConvention = conventionRepository.save(updatedConvention);
             logger.info("Convention updated successfully: {}", savedConvention);
             return ConventionConvert.toDto(savedConvention);
         } else {
-            logger.error("Convention not found with ID: {}", conventionDto.getId());
-            throw new RuntimeException("Convention not found with Id: " + conventionDto.getId());
+            logger.error("Convention not found with UUID: {}", conventionDto.getUuid());
+            throw new RuntimeException("Convention not found with UUID: " + conventionDto.getUuid());
         }
     }
 

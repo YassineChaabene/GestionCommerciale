@@ -93,13 +93,13 @@
                 </span>
               </td>
               <td>
-                <button [routerLink]="['/user-update', user.id]"
+                <button [routerLink]="['/user-update', user.uuid]"
                         class="btn btn-warning">
                   Edit
                 </button>
               </td>
               <td>
-                <button (click)="deleteUser(user.id!)"
+                <button (click)="deleteUser(user.uuid)"
                         class="btn btn-danger">
                   Delete
                 </button>

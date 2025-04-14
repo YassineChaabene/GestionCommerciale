@@ -16,11 +16,11 @@ export class ApplicationService {
     addApplication(application: Application): Observable<Application> {
         return this.http.post<Application>(`${this.apiUrl}/applications/save-application`, application);
       }
-      deleteApplication(id: number): Observable<void> {
-        return this.http.get<void>(`${this.apiUrl}/applications/delete-application?id=${id}`);
+      deleteApplication(uuid: string): Observable<void> {
+        return this.http.get<void>(`${this.apiUrl}/applications/delete-application?uuid=${uuid}`);
       }
-    getApplicationById(id: number): Observable<Application> {
-      return this.http.get<Application>(`${this.apiUrl}/applications/get-application?id=${id}`);
+    getApplicationByUuid(uuid: string): Observable<Application> {
+      return this.http.get<Application>(`${this.apiUrl}/applications/get-application?uuid=${uuid}`);
         }
      updateApplication(application: Application): Observable<Application> {
         return this.http.post<Application>(`${this.apiUrl}/applications/update-application`, application);

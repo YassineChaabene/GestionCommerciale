@@ -21,8 +21,8 @@ public class ApplicationController {
         return "ApplicationController is working!";
     }
 	@GetMapping("/get-application")
-	public ResponseEntity<ApplicationDto> getApplication(@RequestParam Long id){
-		ApplicationDto appDto= appService.getApplication(id);
+	public ResponseEntity<ApplicationDto> getApplication(@RequestParam String uuid){
+		ApplicationDto appDto= appService.getApplicationByUuid(uuid);
 		if(appDto != null) {
 			 return ResponseEntity.ok(appDto);
         } else {

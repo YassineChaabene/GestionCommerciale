@@ -9,7 +9,7 @@ import { ApplicationService } from '../../../services/application.service';
 })
 export class AppCardsComponent {
   applications :Application[]=[]
-  selectedFilter: string = 'nom';
+  selectedFilter: string = 'intitule';
   filteredApplications: Application[] = [];
   priceFilter: number = 0; // Valeur initiale du slider
   maxPrice: number = 0; 
@@ -31,11 +31,9 @@ export class AppCardsComponent {
       (data) => {
         this.applications = data;
         this.filteredApplications = [...data];
-  
-        // Vérifie s'il y a des applications avant d'utiliser Math.max()
-        this.maxPrice = Math.ceil(Math.max(...data.map(app => app.prix)));
 
-        this.priceFilter = this.maxPrice; // Initialise le filtre au prix max
+
+         // Initialise le filtre au prix max
       },
       (error) => {
         console.error('Error fetching Applications', error);
@@ -53,14 +51,16 @@ export class AppCardsComponent {
     this.filteredApplications = this.applications.filter(application => {
       const matchText =
         !this.searchValue ||
-        (this.selectedFilter === 'id' && application.id?.toString().includes(value)) ||
-        (this.selectedFilter === 'nom' && application.nom.toLowerCase().includes(value)) ||
-        (this.selectedFilter === 'prix' && application.prix.toString().includes(value));
-  
-        const matchPrice = application.prix <= this.priceFilter + 0.01;
+        (this.selectedFilter === 'abreviation' && application.abreviation.toLowerCase().includes(value)) ||
+        (this.selectedFilter === 'intitule' && application.intitule.toLowerCase().includes(value)) ||
+        (this.selectedFilter === 'description' && application.description.toString().includes(value)) ||
+        (this.selectedFilter === 'responsable' && application.responsable.toString().includes(value));
 
   
-      return matchText && matchPrice;
+     
+
+  
+      return matchText ;
     });
   }
   
@@ -70,11 +70,11 @@ export class AppCardsComponent {
         this.priceFilter = this.maxPrice;
         
       }
-      deleteApplication(id: number): void {
+      deleteApplication(uuid: string): void {
         if (confirm('Are you sure you want to delete this Application?')) {
-          this.applicationService.deleteApplication(id).subscribe(() => {
-            this.applications = this.applications.filter(application => application.id !== id);
-            this.filteredApplications = this.filteredApplications.filter(application => application.id !== id);
+          this.applicationService.deleteApplication(uuid).subscribe(() => {
+            this.applications = this.applications.filter(application => application.uuid !== uuid);
+            this.filteredApplications = this.filteredApplications.filter(application => application.uuid !== uuid);
           });
         }
       }

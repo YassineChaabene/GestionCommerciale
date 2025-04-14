@@ -79,11 +79,11 @@ export class ClientListComponent implements OnInit {
       this.currentPage = 1;
     }
   
-    deleteClient(id: number): void {
+    deleteClient(uuid: string): void {
       if (confirm('Are you sure you want to delete this client?')) {
-        this.clientService.deleteClient(id).subscribe(() => {
-          this.clients = this.clients.filter(client => client.id !== id);
-          this.filteredClients = this.filteredClients.filter(client => client.id !== id);
+        this.clientService.deleteClient(uuid).subscribe(() => {
+          this.clients = this.clients.filter(client => client.uuid !== uuid);
+          this.filteredClients = this.filteredClients.filter(client => client.uuid !== uuid);
         });
       }
     }

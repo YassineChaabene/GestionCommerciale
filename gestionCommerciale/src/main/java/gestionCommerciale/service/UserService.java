@@ -77,7 +77,7 @@ public class UserService {
     
     public UserDto updateUser(UserDto userDto) {
         logger.info("Updating user: {}", userDto);
-        Optional<User> userOpt = userRepository.findById(userDto.getId());
+        Optional<User> userOpt = userRepository.findByUuid(userDto.getUuid());
 
         if (userOpt.isPresent()) {
             User existingUser = userOpt.get();

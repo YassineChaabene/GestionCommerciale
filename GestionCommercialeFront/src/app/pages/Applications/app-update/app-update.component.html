@@ -1,50 +1,36 @@
 <div class="container">
-    <div class="button-group">
-      <button routerLink="/applications" class="btn btn-secondary back-button">⬅ Back</button>
+  <h2 class="text-center">Edit Application</h2>
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+  <form [formGroup]="applicationForm" (ngSubmit)="updateApplication()">
+    <div class="form-group">
+      <label for="intitule">Intitule</label>
+      <input type="text" id="intitule" formControlName="intitule" class="form-control">
     </div>
-  
-    <!-- Success Message Alert -->
-    <div *ngIf="successMessage" class="alert alert-success" role="alert">
-      {{ successMessage }}
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
     </div>
-  
-    <h2>Update Application</h2>
-    
-    <form [formGroup]="updateApplicationForm" (ngSubmit)="onUpdate()">
-      
-      <!-- Nom Field -->
-      <div class="form-group">
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" class="form-control" formControlName="nom" />
-        <div *ngIf="updateApplicationForm.controls['nom'].invalid && updateApplicationForm.controls['nom'].touched" class="text-danger">
-          Nom is required.
-        </div>
-      </div>
-  
-      <!-- Description Field -->
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" class="form-control" formControlName="description"></textarea>
-        <div *ngIf="updateApplicationForm.controls['description'].invalid && updateApplicationForm.controls['description'].touched" class="text-danger">
-          Description is required.
-        </div>
-      </div>
-  
-      <!-- Prix Field -->
-      <div class="form-group">
-        <label for="prix">Prix (€)</label>
-        <input type="number" id="prix" class="form-control" formControlName="prix" />
-        <div *ngIf="updateApplicationForm.controls['prix'].invalid && updateApplicationForm.controls['prix'].touched" class="text-danger">
-          Prix is required.
-        </div>
-      </div>
-      
-  
-      <div class="down">
-        <button type="submit" class="btn btn-success" [disabled]="updateApplicationForm.invalid">Update Application</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
-      </div>
-  
-    </form>
-  </div>
-  
+
+    <div class="form-group">
+      <label for="dateExploitation">Date d'exploitation</label>
+      <input type="date" id="dateExploitation" formControlName="dateExploitation" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="abreviation">Abréviation</label>
+      <input type="text" id="abreviation" formControlName="abreviation" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="responsable">Responsable</label>
+      <input type="text" id="responsable" formControlName="responsable" class="form-control">
+    </div>
+
+    <div class="button-group mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="applicationForm.invalid">Update</button>
+      <button type="button" class="btn btn-secondary" routerLink="/applications">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -11,59 +11,55 @@ import { Application } from '../../../models/application.model';
   styleUrls: ['./app-update.component.css']
 })
 export class AppUpdateComponent implements OnInit {
-  updateApplicationForm!: FormGroup;
-  successMessage: string = '';
-  appId!: number;
+  applicationForm!: FormGroup;
+  uuid!: string;
+  successMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private appService: ApplicationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.appId = +this.route.snapshot.paramMap.get('id')!;
-    
-    this.updateApplicationForm = this.fb.group({
-      nom: ['', Validators.required],
-      description: ['', Validators.required],
-      prix: ['', [Validators.required, Validators.min(0)]],
+    this.uuid = this.route.snapshot.paramMap.get('uuid')!;
+    this.initializeForm();
 
-    });
-
-    this.loadApplication();
-  }
-
-  loadApplication(): void {
-    this.applicationService.getApplicationById(this.appId).subscribe((app) => {
-      this.updateApplicationForm.patchValue({
-        nom: app.nom,
+    this.appService.getApplicationByUuid(this.uuid).subscribe(app => {
+      this.applicationForm.patchValue({
+        intitule: app.intitule,
         description: app.description,
-        prix: app.prix
-
+        dateExploitation: app.dateExploitation?.toString().split('T')[0],
+        abreviation: app.abreviation,
+        responsable: app.responsable
       });
     });
   }
 
-  onUpdate() {
-    if (this.updateApplicationForm.invalid) return;
-  
-    const updatedApplication: Application = { 
-      id: this.appId,
-      ...this.updateApplicationForm.value,
-    };
-  
-    this.applicationService.updateApplication(updatedApplication).subscribe({
-      next: () => {
-        this.successMessage = "Application updated successfully!";
-        setTimeout(() => {
-          this.successMessage = '';
-          this.router.navigate(['/applications']); 
-        }, 3000);
-      },
-      error: (err) => console.error('Error updating application:', err)
+  initializeForm(): void {
+    this.applicationForm = this.fb.group({
+      intitule: ['', Validators.required],
+      description: ['', Validators.required],
+      dateExploitation: ['', Validators.required],
+      abreviation: ['', Validators.required],
+      responsable: ['', Validators.required]
     });
   }
-  
+
+  updateApplication(): void {
+    if (this.applicationForm.valid) {
+      const updatedApp: Application = {
+        uuid: this.uuid,
+        ...this.applicationForm.value
+      };
+
+      this.appService.updateApplication(updatedApp).subscribe(() => {
+        this.successMessage = 'Application updated successfully!';
+        setTimeout(() => {
+          this.router.navigate(['/applications']);
+        }, 2000);
+      });
+    }
+  }
 }

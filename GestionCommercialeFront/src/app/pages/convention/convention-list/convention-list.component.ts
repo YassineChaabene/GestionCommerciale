@@ -46,7 +46,7 @@ export class ConventionListComponent implements OnInit {
           this.conventions = conventions.map(convention => ({
             ...convention,
             clientName: this.clients.find(c => c.id === convention.client.id)?.intutile || 'Unknown',
-            applicationName: this.applications.find(a => a.id === convention.application.id)?.nom || 'Unknown'
+            applicationName: this.applications.find(a => a.id === convention.application.id)?.intitule || 'Unknown'
           }) as Convention & { clientName: string, applicationName: string }); // Use type assertion here
 
           // Filter conventions when data is fetched
@@ -130,10 +130,10 @@ export class ConventionListComponent implements OnInit {
     return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
   }
 
-  deleteConvention(id: number): void {
+  deleteConvention(uuid: string): void {
     if (confirm('Are you sure you want to delete this Convention?')) {
-      this.conventionService.deleteConvention(id).subscribe(() => {
-        this.conventions = this.conventions.filter(convention => convention.id !== id);
+      this.conventionService.deleteConvention(uuid).subscribe(() => {
+        this.conventions = this.conventions.filter(convention => convention.uuid !== uuid);
         this.filteredConventions = [...this.conventions]; // Update filtered conventions
       });
     }

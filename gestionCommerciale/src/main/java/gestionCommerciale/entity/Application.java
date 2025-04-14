@@ -23,16 +23,19 @@ public class Application {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nom;
+    private String intitule;
 
     @Column(nullable = false)
     private String description;
+    
+    @Column(nullable = false)
+    private String responsable;
 
     @Column(nullable = false)
-    private LocalDate dateAjout = LocalDate.now();
-
+    private LocalDate dateExploitation ;
+    
     @Column(nullable = false)
-    private Double prix;
+    private String abreviation;
 
     @Column(unique = true, nullable = false, updatable = false)
     private String uuid;
@@ -42,9 +45,6 @@ public class Application {
     private void initializeFields() {
         if (this.uuid == null) {
             this.uuid = UUID.randomUUID().toString();
-        }
-        if (this.dateAjout == null) {
-            this.dateAjout = LocalDate.now();
         }
     }
 

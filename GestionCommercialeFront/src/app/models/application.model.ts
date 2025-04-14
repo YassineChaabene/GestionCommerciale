@@ -1,9 +1,11 @@
 // application.model.ts
 export interface Application {
+  uuid: string;
     id: number;
-    nom: string;
+    intitule: string;
     description: string;
-    dateAjout: Date;
-    prix: number;
+    dateExploitation: Date;
+    abreviation: string;
+    responsable: string;
   }
   

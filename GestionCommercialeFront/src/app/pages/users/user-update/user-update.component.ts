@@ -12,7 +12,7 @@ import { User } from '../../../models/user.model';
 })
 export class UserUpdateComponent implements OnInit {
   updateUserForm!: FormGroup;
-  userId!: number; // Changed from UUID to ID
+  userUuid!: string;
   successMessage: string = '';
   errorMessage: string = '';
 
@@ -32,9 +32,9 @@ export class UserUpdateComponent implements OnInit {
     });
 
     // Get ID from route params
-    this.userId = +this.route.snapshot.paramMap.get('id')!;
-    if (this.userId) {
-      this.userService.getUser(this.userId).subscribe({
+    this.userUuid = this.route.snapshot.paramMap.get('uuid') || '';
+    if (this.userUuid) {
+      this.userService.getUserByUuid(this.userUuid).subscribe({
         next: (user) => this.updateUserForm.patchValue(user),
         error: (err) => this.errorMessage = 'Failed to load user details'
       });
@@ -45,7 +45,7 @@ export class UserUpdateComponent implements OnInit {
     if (this.updateUserForm.invalid) return;
 
     const updatedUser: User = {
-      id: this.userId,
+      uuid: this.userUuid,
       ...this.updateUserForm.value
     };
 

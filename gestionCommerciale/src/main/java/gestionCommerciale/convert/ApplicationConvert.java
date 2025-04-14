@@ -11,11 +11,13 @@ public class ApplicationConvert {
 			return null;
 		}
 		return ApplicationDto.builder()
+				.uuid(entity.getUuid())
 				.id(entity.getId())
-				.nom(entity.getNom())
+				.intitule(entity.getIntitule())
 				.description(entity.getDescription())
-				.dateAjout(entity.getDateAjout())
-				.prix(entity.getPrix())
+				.dateExploitation(entity.getDateExploitation())
+				.abreviation(entity.getAbreviation())
+				.responsable(entity.getResponsable())
 				.build();
 	}
 	
@@ -25,11 +27,13 @@ public class ApplicationConvert {
 				return null;
 			}
 			return Application.builder()
+					.uuid(appDto.getUuid())
 					.id(appDto.getId())
-					.nom(appDto.getNom())
+					.intitule(appDto.getIntitule())
 					.description(appDto.getDescription())
-					.dateAjout(appDto.getDateAjout())
-					.prix(appDto.getPrix())
+					.dateExploitation(appDto.getDateExploitation())
+					.abreviation(appDto.getAbreviation())
+					.responsable(appDto.getResponsable())
 					.build();
 				
 		}

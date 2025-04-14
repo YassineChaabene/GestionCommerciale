@@ -7,7 +7,8 @@
     status: string;
     startDate: string;
     endDate?: string;
-    archived: boolean;  // Add the archived field
-    client: Client;   // Change client to clientId
-    application: Application;  // Change application to applicationId
+    archived: boolean; 
+    client: Client;  
+    application: Application;
+    uuid: string;  
   }

@@ -15,11 +15,11 @@ export class UserService {
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users/get-all-users`);
+    
   }
 
-  // Get user by id
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/users/get-user?id=${id}`);
+  getUserByUuid(uuid: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/users/get-user-by-uuid?uuid=${uuid}`);
   }
 
   // Add a new user
@@ -32,7 +32,7 @@ export class UserService {
   
 
   // Delete a user
-  deleteUser(id: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/users/delete-user?id=${id}`);
+  deleteUser(uuid: string): Observable<void> {
+    return this.http.get<void>(`${this.apiUrl}/users/delete-user?uuid=${uuid}`);
   }
 }

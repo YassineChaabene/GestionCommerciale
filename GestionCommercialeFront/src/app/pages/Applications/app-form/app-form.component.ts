@@ -1,42 +1,47 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ApplicationService } from '../../../services/application.service';
-import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-app-form',
   standalone: false,
   templateUrl: './app-form.component.html',
   styleUrl: './app-form.component.css'
 })
-export class AppFormComponent  {
+export class AppFormComponent {
   applicationForm: FormGroup;
-  successMessage: string = '';  
-  constructor(private fb: FormBuilder, private appService: ApplicationService,private router: Router) 
-  {
+  successMessage: string = '';
+
+  constructor(private fb: FormBuilder, private appService: ApplicationService, private router: Router) {
     this.applicationForm = this.fb.group({
-      nom: ['', Validators.required],
+      intitule: ['', Validators.required],
       description: ['', Validators.required],
-      prix: [null, [Validators.required, Validators.min(0)]],
-      dateAjout: [new Date().toISOString().split('T')[0]]  // Default today
+      dateExploitation: [new Date().toISOString().split('T')[0], Validators.required],
+      abreviation: ['', Validators.required],
+      responsable: ['', Validators.required]
     });
   }
-  addApplication(){
-    console.log(this.applicationForm.value)
-    if (this.applicationForm.valid){
-      this.appService.addApplication(this.applicationForm.value).subscribe(
-        () => {
-          this.successMessage = 'New Application added successfully!';
+
+  addApplication(): void {
+    if (this.applicationForm.valid) {
+      const formValue = {
+        ...this.applicationForm.value,
+        dateExploitation: new Date(this.applicationForm.value.dateExploitation)
+      };
+
+      this.appService.addApplication(formValue).subscribe({
+        next: () => {
+          this.successMessage = '✅ New Application added successfully!';
           setTimeout(() => {
             this.successMessage = '';
-            this.router.navigate(['/Applications']);
-          }, 3000);
+            this.router.navigate(['/applications']);
+          }, 2000);
         },
-        (error) => {
-          console.error('Error adding application', error);
+        error: (error) => {
+          console.error('❌ Error adding application:', error);
         }
-
-      )
+      });
     }
-}
+  }
 }

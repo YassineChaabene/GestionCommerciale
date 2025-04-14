@@ -58,7 +58,7 @@ public class ApplicationService {
     	logger.info("Saving new application: {}", appDto);
     	Application app = ApplicationConvert.toEntity(appDto);
     	Application savedApp = appRepo.save(app);
-    	logger.info("Application saved successfully with ID: {}", savedApp.getId());
+    	logger.info("Application saved successfully with ID: {}", savedApp.getUuid());
     	return ApplicationConvert.toDto(savedApp);
     }
     
@@ -77,12 +77,13 @@ public class ApplicationService {
     
     public ApplicationDto updateApplication(ApplicationDto appDto) {
         logger.info("Updating application: {}", appDto);
-        Optional<Application> appOpt = appRepo.findById(appDto.getId());
+        Optional<Application> appOpt = appRepo.findByUuid(appDto.getUuid());
 
         if (appOpt.isPresent()) {
         	Application existingApp = appOpt.get();
         	Application updatedApp = ApplicationConvert.toEntity(appDto);
-        	updatedApp.setId(existingApp.getId()); // Keep the same ID
+        	updatedApp.setId(existingApp.getId()); 
+        	updatedApp.setUuid(existingApp.getUuid());// Keep the same ID
 
         	Application savedApp = appRepo.save(updatedApp);
             logger.info("Application updated successfully: {}", savedApp);

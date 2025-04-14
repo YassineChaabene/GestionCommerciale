@@ -19,8 +19,11 @@
           {{ selectedFilter }}
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="setFilter('id')">ID</a></li>
-          <li><a class="dropdown-item" (click)="setFilter('nom')">Nom</a></li>
+   
+          <li><a class="dropdown-item" (click)="setFilter('intitule')">intitule</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('responsable')">responsable</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('abreviation')">abreviation</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('description')">description</a></li>
         </ul>
       </div>
 
@@ -40,36 +43,33 @@
       </button>
     </div>
 
-    <div class="price-filter mt-3">
-      <label for="priceRange">Filtrer par Prix: {{ priceFilter }}</label>
-      <input type="range" id="priceRange" min="0" [max]="maxPrice" [(ngModel)]="priceFilter" (input)="applyFilter()" />
-    </div>
+    
 
     <div class="table-responsive mt-4">
       <table class="table  ">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nom</th>
+            <th>Abréviation</th>
+            <th>Intitule</th>
             <th>Description</th>
             <th>Date d'exploitaion</th>
-            <th>Prix (dt)</th>
+            <th>responsable</th>
             <th>Edit Application</th>
             <th>Delete Application</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let app of paginatedApplication()">
-            <td>{{ app.id }}</td>
-            <td>{{ app.nom }}</td>
+            <td>{{ app.abreviation }}</td>
+            <td>{{ app.intitule }}</td>
             <td>{{ app.description }}</td>
-            <td>{{ app.dateAjout | date:'dd/MM/yyyy' }}</td>
-            <td>{{ app.prix | number:'1.2-2' }}</td>
+            <td>{{ app.dateExploitation| date:'dd/MM/yyyy' }}</td>
+            <td>{{ app.responsable }}</td>
             <td>
-              <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.id]">✏️ Edit</button>
+              <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.uuid]">✏️ Edit</button>
               
             </td>
-            <td><button class="btn btn-danger delete-button" (click)="deleteApplication(app.id!)">🗑 Delete</button></td>
+            <td><button class="btn btn-danger delete-button" (click)="deleteApplication(app.uuid)">🗑 Delete</button></td>
           </tr>
         </tbody>
       </table>

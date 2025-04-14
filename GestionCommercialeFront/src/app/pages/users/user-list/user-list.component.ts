@@ -85,11 +85,11 @@ export class UserListComponent implements OnInit {
     this.currentPage = 1;
   }
 
-  deleteUser(id: number): void {
+  deleteUser(uuid: string): void {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.users = this.users.filter(user => user.id !== id);
-        this.filteredUsers = this.filteredUsers.filter(user => user.id !== id);
+      this.userService.deleteUser(uuid).subscribe(() => {
+        this.users = this.users.filter(user => user.uuid !== uuid);
+        this.filteredUsers = this.filteredUsers.filter(user => user.uuid !== uuid);
       });
     }
   }

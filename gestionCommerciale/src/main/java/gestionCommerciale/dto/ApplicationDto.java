@@ -16,11 +16,12 @@ import lombok.Builder;
 public class ApplicationDto {
 	
 	
-	
+	private String uuid;
 	private Long id;
-	private String nom;
+	private String intitule;
 	private String description;
-	private LocalDate dateAjout ;
-	private Double prix;
+	private LocalDate dateExploitation ;
+	private String responsable;
+	private String abreviation;
 
 }

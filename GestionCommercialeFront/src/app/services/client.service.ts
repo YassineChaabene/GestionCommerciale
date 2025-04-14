@@ -29,8 +29,8 @@ export class ClientService {
     return this.http.post<Client>(`${this.apiUrl}/clients/update-client`, client);
   }
 
-  deleteClient(id: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/clients/delete-client?id=${id}`);
+  deleteClient(uuid: string): Observable<void> {
+    return this.http.get<void>(`${this.apiUrl}/clients/delete-client?uuid=${uuid}`);
   }
   getClientByUuid(uuid: string): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/clients/get-client-by-uuid?uuid=${uuid}`);
