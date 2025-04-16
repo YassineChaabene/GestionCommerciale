@@ -1,0 +1,32 @@
+/* The parent container must span the full height */
+.app-layout {
+    display: flex;
+    min-height: 100vh; /* ensures the layout fills the viewport vertically */
+  }
+  
+  /* Sidebar (app-menu-ui) */
+  app-menu-ui {
+    width: 240px;        /* fixed width for the sidebar */
+    min-width: 240px;
+    background-color: #0A1F44; /* example dark blue color */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    /* ensure it takes up full vertical space */
+  }
+  
+  /* Main content to the right */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa; /* or keep it white if you want */
+  }
+  
+  /* The page content area below the navbar */
+  .page-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px; /* spacing around your content */
+  }
+  

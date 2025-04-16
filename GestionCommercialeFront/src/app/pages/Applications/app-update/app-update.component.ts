@@ -57,7 +57,7 @@ export class AppUpdateComponent implements OnInit {
       this.appService.updateApplication(updatedApp).subscribe(() => {
         this.successMessage = 'Application updated successfully!';
         setTimeout(() => {
-          this.router.navigate(['/applications']);
+          this.router.navigate(['/app/applications']);
         }, 2000);
       });
     }

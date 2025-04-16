@@ -54,7 +54,7 @@ export class ClientUpdateComponent implements OnInit {
       next: () =>{this.successMessage = "Client updated successfully!";
         setTimeout(() => {
           this.successMessage = ''; // Hide message after 3 seconds
-          this.router.navigate(['/clients']); 
+          this.router.navigate(['/app/clients']); 
         }, 3000);
       },
     error: (err) => console.error('Error updating client:', err)

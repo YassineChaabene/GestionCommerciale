@@ -52,7 +52,7 @@ export class UserUpdateComponent implements OnInit {
     this.userService.updateUser(updatedUser).subscribe({
       next: () => {
         this.successMessage = 'User updated successfully!';
-        setTimeout(() => this.router.navigate(['/users']), 3000);
+        setTimeout(() => this.router.navigate(['/app/users']), 3000);
       },
       error: (err) => this.errorMessage = 'Failed to update user'
     });

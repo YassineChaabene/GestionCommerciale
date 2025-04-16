@@ -1,12 +1,10 @@
 <div class="">
-  <app-menu-ui></app-menu-ui>
 
   <div class="main-content">
-    <app-navbar  ></app-navbar>
     <div class="header-container">
       <h2 class="page-title">Convention List</h2>
       <div class="button-group">
-        <button routerLink="/conventions/add" class="btn btn-success add-button"><i class="bi bi-bookmark-plus-fill"></i> Add Convention</button>
+        <button routerLink="/app/conventions/add" class="btn btn-success add-button"><i class="bi bi-bookmark-plus-fill"></i> Add Convention</button>
       </div>
     </div>
 
@@ -59,7 +57,7 @@
               <td>{{ convention.endDate | date:'dd/MM/yyyy'}}</td>
               <td>{{ convention.application.intitule }}</td>
               <td>{{ convention.client.intutile }}</td>
-              <td><button class="btn btn-warning" [routerLink]="['/convention-update', convention.uuid]">Edit</button></td>
+              <td><button class="btn btn-warning" [routerLink]="['/app/convention-update', convention.uuid]">Edit</button></td>
               <td><button class="btn btn-danger" (click)="deleteConvention(convention.uuid)">Delete</button></td>
             </tr>
           </tbody>

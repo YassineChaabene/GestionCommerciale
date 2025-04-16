@@ -66,7 +66,7 @@ export class FactureFormComponent implements OnInit {
           this.successMessage = 'Facture ajoutée avec succès !';
           setTimeout(() => {
             this.successMessage = '';
-            this.router.navigate(['/factures']);
+            this.router.navigate(['/app/factures']);
           }, 3000);
         },
         (error) => {

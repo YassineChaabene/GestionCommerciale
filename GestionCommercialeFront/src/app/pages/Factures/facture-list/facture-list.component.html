@@ -1,13 +1,11 @@
 <div class="">
-  <app-menu-ui></app-menu-ui>
 
   <div class="main-content">
-    <app-navbar></app-navbar>
 
     <div class="header-container">
       <h2 class="page-title">Liste des Factures</h2>
       <div class="button-group">
-        <button routerLink="/factures/add" class="btn btn-success add-button">
+        <button routerLink="/app/factures/add" class="btn btn-success add-button">
           <i class="bi bi-plus-circle-fill"></i> Add Facture
         </button>
       </div>
@@ -71,7 +69,7 @@
             </td>
             
             <td>{{ facture.conventionCode || 'N/A' }}</td>
-            <td><button class="btn btn-warning" [routerLink]="['/facture-update', facture.uuid]">Edit</button></td>
+            <td><button class="btn btn-warning" [routerLink]="['/app/facture-update', facture.uuid]">Edit</button></td>
             <td><button class="btn btn-danger" (click)="deleteFacture(facture.uuid)">Delete</button></td>
           </tr>
         </tbody>

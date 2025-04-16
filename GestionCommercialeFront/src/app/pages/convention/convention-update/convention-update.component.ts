@@ -81,11 +81,14 @@ export class ConventionUpdateComponent implements OnInit {
         applicationId: this.conventionForm.value.applicationId
       };
 
-      this.conventionService.updateConvention(formData).subscribe(() => {
-        this.successMessage = 'Convention updated successfully!';
-        setTimeout(() => {
-          this.router.navigate(['/conventions']);
-        }, 2000);
+      this.conventionService.updateConvention(formData).subscribe( {
+        next: () =>{this.successMessage = "convention updated successfully!";
+          setTimeout(() => {
+            this.successMessage = ''; // Hide message after 3 seconds
+            this.router.navigate(['/app/conventions']); 
+          }, 3000);
+        },
+      error: (err) => console.error('Error updating convention:', err)
       });
     }
   }

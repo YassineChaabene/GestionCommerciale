@@ -35,7 +35,7 @@ export class AppFormComponent {
           this.successMessage = '✅ New Application added successfully!';
           setTimeout(() => {
             this.successMessage = '';
-            this.router.navigate(['/applications']);
+            this.router.navigate(['/app/applications']);
           }, 2000);
         },
         error: (error) => {

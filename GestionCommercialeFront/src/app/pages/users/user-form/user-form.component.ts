@@ -37,7 +37,7 @@ export class UserFormComponent {
           this.successMessage = 'User created successfully!';
           setTimeout(() => {
             this.successMessage = '';
-            this.router.navigate(['/users']); // Navigate to user list
+            this.router.navigate(['/app/users']); // Navigate to user list
           }, 3000);
         },
         (error) => {

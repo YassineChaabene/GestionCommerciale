@@ -1,17 +1,14 @@
 <div class="">
   
-
-  <!-- Sidebar -->
-  <app-menu-ui></app-menu-ui>
   
   <!-- Main Content -->
   <div class="main-content" >
     
-    <app-navbar  ></app-navbar>
+  
     <div class="header-container">
       <h2 class="page-title">Client List</h2>
       <div class="button-group">
-        <button routerLink="/clients/add" class="btn  add-button"><i class="bi bi-bookmark-plus-fill"></i>
+        <button routerLink="/app/clients/add" class="btn  add-button"><i class="bi bi-bookmark-plus-fill"></i>
           Add Client</button>
       </div>
     </div>
@@ -71,7 +68,7 @@
               <td>{{ client.email }}</td>
               <td>{{ client.adresse }}</td>
               <td>
-                <button [routerLink]="['/client-update', client.uuid]" class="btn btn-warning">Edit</button>
+                <button [routerLink]="['/app/client-update', client.uuid]" class="btn btn-warning">Edit</button>
               </td>
               <td>
                 <button (click)="deleteClient(client.uuid!)" class="btn btn-danger">Delete</button>

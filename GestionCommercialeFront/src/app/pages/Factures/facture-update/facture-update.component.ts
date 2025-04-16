@@ -92,7 +92,8 @@ export class FactureUpdateComponent implements OnInit {
       next: () => {
         this.successMessage = 'Facture updated successfully!';
         setTimeout(() => {
-          this.router.navigate(['/factures']);
+          this.successMessage = ''; // Hide message after 3 seconds
+          this.router.navigate(['/app/factures']);
         }, 3000);
       },
       error: (err) => {

@@ -1,4 +1,14 @@
 <div class="container">
+    <div class="button-group">
+        <button routerLink="/app/conventions" class="btn  btn-secondary back-button">⬅
+        Back
+      </button></div>
+        
+      
+       <!-- Success Message Alert -->
+       <div *ngIf="successMessage" class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
     <h2>Update Convention</h2>
     <form [formGroup]="conventionForm" (ngSubmit)="updateConvention()">
       <div class="form-group">

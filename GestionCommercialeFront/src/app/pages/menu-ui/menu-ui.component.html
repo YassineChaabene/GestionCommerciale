@@ -1,61 +1,35 @@
-<div class="sidebar">
-  <!-- Logo Section -->
-   
-  <div class="logo-container">
-    <img src="../../../assets/logo.png" alt="Logo" class="sidebar-logo" />
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <!-- Logo or brand text -->
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <span class="brand-text">MyApp</span>
   </div>
 
-  <ul class="nav flex-column">
-    <!-- Accueil -->
+  <ul class="nav flex-column mt-4">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/menu">
-        <div class="icon-container">
-          <i class="fas fa-home"></i>
-        </div>
-        <span style="font-size: 18px;">Accueil</span>
+      <a routerLink="/app/clients" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-people"></i> Clients
       </a>
     </li>
-
-    <!-- Clients -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="/clients">
-        <div class="icon-container">
-          <i class="fas fa-users"></i>
-        </div>
-        <span  style="font-size: 18px;">Clients</span>
+      <a routerLink="/app/applications" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-app-indicator"></i> Applications
       </a>
     </li>
-
-    <!-- Applications -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="/applications">
-        <div class="icon-container">
-          <i class="fas fa-mobile-alt"></i>
-        </div>
-        <span  style="font-size: 18px;">Applications</span>
+      <a routerLink="/app/conventions" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-file-earmark-text"></i> Conventions
       </a>
     </li>
-
-    <!-- Conventions -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="/conventions">
-        <div class="icon-container">
-          <i class="bi bi-file-earmark-spreadsheet"></i>
-        </div>
-        <span  style="font-size: 18px;">Conventions</span>
+      <a routerLink="/app/factures" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-cash-stack"></i> Factures
       </a>
     </li>
-
-    <!-- Users (Visible only for ADMIN role) -->
     <li class="nav-item" *ngIf="role === 'ADMIN'">
-      <a class="nav-link" routerLink="/users">
-        <div class="icon-container">
-          <i class="fas fa-users"></i>
-        </div>
-        <span style="font-size: 18px;">Users</span>
+      <a routerLink="/app/users" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-shield-lock"></i> Users
       </a>
     </li>
-
-    
   </ul>
-</div>
+</nav>

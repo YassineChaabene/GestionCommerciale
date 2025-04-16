@@ -1,15 +1,12 @@
 <div class="">
-    <!-- Sidebar -->
-    <app-menu-ui></app-menu-ui>
   
     <!-- Main Content -->
     <div class="main-content" >
       
-      <app-navbar  ></app-navbar>
     <div class="header-container">
       <h2 class="page-title">Liste des Applications</h2>
       <div class="button-group">
-        <button routerLink="/applications/add" class="btn btn-success add-button"><i class="bi bi-bookmark-plus-fill"></i> Add Application</button>
+        <button routerLink="/app/applications/add" class="btn btn-success add-button"><i class="bi bi-bookmark-plus-fill"></i> Add Application</button>
       </div>
     </div>
 
@@ -66,10 +63,10 @@
             <td>{{ app.dateExploitation| date:'dd/MM/yyyy' }}</td>
             <td>{{ app.responsable }}</td>
             <td>
-              <button class="btn btn-warning edit-button" [routerLink]="['/application-update', app.uuid]">✏️ Edit</button>
+              <button class="btn btn-warning edit-button" [routerLink]="['/app/application-update', app.uuid]">Edit</button>
               
             </td>
-            <td><button class="btn btn-danger delete-button" (click)="deleteApplication(app.uuid)">🗑 Delete</button></td>
+            <td><button class="btn btn-danger delete-button" (click)="deleteApplication(app.uuid)">Delete</button></td>
           </tr>
         </tbody>
       </table>

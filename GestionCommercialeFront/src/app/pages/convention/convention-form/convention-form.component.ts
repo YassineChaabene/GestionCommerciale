@@ -7,6 +7,7 @@ import { Client } from '../../../models/client.model';
 import { Application } from '../../../models/application.model';
 import { Convention } from '../../../models/convention.model';
 import { ConventionRequest } from '../../../models/convention-request.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-convention-form',
@@ -24,7 +25,8 @@ export class ConventionFormComponent implements OnInit {
     private fb: FormBuilder,
     private conventionService: ConventionService,
     private clientService: ClientService,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -70,8 +72,12 @@ export class ConventionFormComponent implements OnInit {
   
       this.conventionService.addConvention(formData).subscribe({
         next: () => {
-          this.successMessage = 'Convention added successfully!';
-          this.conventionForm.reset();
+          this.successMessage = 'New Convention added successfully!';
+          setTimeout(() => {
+            this.successMessage = '';
+            this.router.navigate(['/app/conventions']);
+          }, 3000);
+        
         },
         error: (err) => console.error('Error adding convention:', err)
       });

@@ -38,7 +38,7 @@ export class ClientFormComponent {
           this.successMessage = 'New client added successfully!';
           setTimeout(() => {
             this.successMessage = ''; // Hide message after 3 seconds
-            this.router.navigate(['/clients']); // Navigate to client list
+            this.router.navigate(['/app/clients']); // Navigate to client list
           }, 3000);
         },
         (error) => {

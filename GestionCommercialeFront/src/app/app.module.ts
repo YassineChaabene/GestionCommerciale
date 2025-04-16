@@ -4,7 +4,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './pages/menu/menu.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -25,6 +25,8 @@ import { ConventionUpdateComponent } from './pages/convention/convention-update/
 import { FactureListComponent } from './pages/Factures/facture-list/facture-list.component';
 import { FactureFormComponent } from './pages/Factures/facture-form/facture-form.component';
 import { FactureUpdateComponent } from './pages/Factures/facture-update/facture-update.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
 
 @NgModule({
 
@@ -35,7 +37,7 @@ import { FactureUpdateComponent } from './pages/Factures/facture-update/facture-
     UserFormComponent,
     ClientUpdateComponent,
     ClientFormComponent,
-    MenuComponent,
+
     AppComponent,
     ClientListComponent,
     AppCardsComponent,
@@ -47,7 +49,9 @@ import { FactureUpdateComponent } from './pages/Factures/facture-update/facture-
     UserUpdateComponent,
     FactureListComponent,
     FactureFormComponent,
-    FactureUpdateComponent
+    FactureUpdateComponent,
+    MainLayoutComponent,
+    PublicLayoutComponent
 
 
   ],

@@ -71,7 +71,7 @@ export class LoginComponent implements AfterViewInit {
         console.log('✅ Login successful, redirecting...', response);
                 
          
-          this.router.navigate(['/menu']); // ✅ Redirect admin to admin panel
+          this.router.navigate(['/app/clients']); // ✅ Redirect admin to admin panel
          
 
         
