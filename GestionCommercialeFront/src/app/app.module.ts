@@ -22,6 +22,9 @@ import { ConventionListComponent } from './pages/convention/convention-list/conv
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 import { ConventionUpdateComponent } from './pages/convention/convention-update/convention-update.component';
+import { FactureListComponent } from './pages/Factures/facture-list/facture-list.component';
+import { FactureFormComponent } from './pages/Factures/facture-form/facture-form.component';
+import { FactureUpdateComponent } from './pages/Factures/facture-update/facture-update.component';
 
 @NgModule({
 
@@ -41,7 +44,10 @@ import { ConventionUpdateComponent } from './pages/convention/convention-update/
     MenuUiComponent,
     ConventionListComponent,
     NavbarComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    FactureListComponent,
+    FactureFormComponent,
+    FactureUpdateComponent
 
 
   ],

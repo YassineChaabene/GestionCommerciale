@@ -8,7 +8,8 @@ describe('authGuard', () => {
       TestBed.runInInjectionContext(() => {
         const router = TestBed.inject(Router);
         const guard = new AuthGuard(router);
-        return guard.canActivate();
+        const mockRoute = {} as ActivatedRouteSnapshot;
+        return guard.canActivate(mockRoute);
       });
 
   beforeEach(() => {

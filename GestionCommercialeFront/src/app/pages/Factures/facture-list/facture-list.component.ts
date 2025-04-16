@@ -1,31 +1,46 @@
-import { Component ,OnInit } from '@angular/core';
-import { FactureService } from '../../../services/facture.service';
+import { Component, OnInit } from '@angular/core';
 import { Facture } from '../../../models/facture.model';
-
+import { Convention } from '../../../models/convention.model';
+import { FactureService } from '../../../services/facture.service';
+import { ConventionService } from '../../../services/convention.service';
 
 @Component({
-  selector: 'app-facture-list',
   standalone: false,
+  selector: 'app-facture-list',
   templateUrl: './facture-list.component.html',
-  styleUrl: './facture-list.component.css'
+  styleUrls: ['./facture-list.component.css']
 })
 export class FactureListComponent implements OnInit {
-  factures: Facture[] = [];
-  filteredFactures: Facture[] = [];
+  factures: (Facture & { conventionCode: string })[] = [];
+  filteredFactures: (Facture & { conventionCode: string })[] = [];
   searchValue: string = '';
-  selectedFilter: string = 'numeroFacture';
+  selectedFilter: string = 'reference';
   itemsPerPage: number = 5;
   currentPage: number = 1;
+  pageSizeOptions: number[] = [5, 10, 20];
   sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
-  pageSizeOptions: number[] = [5, 10, 20];
+  conventions: Convention[] = [];
 
-  constructor(private factureService: FactureService) {}
+  constructor(
+    private factureService: FactureService,
+    private conventionService: ConventionService
+  ) {}
 
   ngOnInit(): void {
-    this.factureService.getAllFactures().subscribe(data => {
-      this.factures = data;
-      this.filteredFactures = [...this.factures];
+    this.fetchData();
+  }
+  
+  fetchData(): void {
+    this.conventionService.getAllConventions().subscribe(conventions => {
+      this.factureService.getAllFactures().subscribe(factures => {
+        this.factures = factures.map(facture => ({
+          ...facture,
+          conventionCode: conventions.find(c => c.uuid === facture.conventionUuid)?.code || 'Unknown'
+        }));
+        this.filteredFactures = [...this.factures];
+        console.log('Factures:', this.factures);
+      });
     });
   }
 
@@ -41,9 +56,12 @@ export class FactureListComponent implements OnInit {
 
   applyFilter(): void {
     const value = this.searchValue.toLowerCase();
-    this.filteredFactures = this.factures.filter(f => {
-      const field = f[this.selectedFilter as keyof Facture];
-      return field?.toString().toLowerCase().includes(value);
+    this.filteredFactures = this.factures.filter(facture => {
+      const fieldValue =
+        this.selectedFilter === 'conventionCode'
+          ? facture.conventionCode?.toLowerCase()
+          : facture[this.selectedFilter as keyof Facture]?.toString().toLowerCase();
+      return fieldValue?.includes(value);
     });
   }
 
@@ -56,26 +74,19 @@ export class FactureListComponent implements OnInit {
     }
 
     this.filteredFactures.sort((a, b) => {
-      const valA = a[column as keyof Facture]?.toString().toLowerCase() || '';
-      const valB = b[column as keyof Facture]?.toString().toLowerCase() || '';
+      const valA = (a[column as keyof typeof a] || '').toString().toLowerCase();
+      const valB = (b[column as keyof typeof b] || '').toString().toLowerCase();
       return this.sortDirection === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
     });
   }
 
-  paginatedFactures(): Facture[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredFactures.slice(start, start + this.itemsPerPage);
+  paginatedFactures(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredFactures.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
-    }
-  }
-
-  changePageSize(size: number): void {
-    this.itemsPerPage = size;
-    this.currentPage = 1;
+    this.currentPage = page;
   }
 
   totalPages(): number {
@@ -85,13 +96,18 @@ export class FactureListComponent implements OnInit {
   totalPagesArray(): number[] {
     return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
   }
-/*
-  deleteFacture(id: number): void {
-    if (confirm('Are you sure you want to delete this Facture?')) {
-      this.factureService.deleteFacture(id).subscribe(() => {
-        this.factures = this.factures.filter(f => f.id !== id);
-        this.applyFilter(); // update filtered list
+
+  changePageSize(size: number): void {
+    this.itemsPerPage = size;
+    this.currentPage = 1;
+  }
+
+  deleteFacture(uuid: string): void {
+    if (confirm('Are you sure you want to delete this facture?')) {
+      this.factureService.deleteFacture(uuid).subscribe(() => {
+        this.factures = this.factures.filter(f => f.uuid !== uuid);
+        this.filteredFactures = [...this.factures];
       });
     }
-  }*/
+  }
 }

@@ -15,6 +15,9 @@ import { ConventionListComponent } from './pages/convention/convention-list/conv
 import { UserUpdateComponent } from './pages/users/user-update/user-update.component';
 import { ConventionFormComponent } from './pages/convention/convention-form/convention-form.component';
 import { ConventionUpdateComponent } from './pages/convention/convention-update/convention-update.component';
+import { FactureListComponent } from './pages/Factures/facture-list/facture-list.component';
+import { FactureFormComponent } from './pages/Factures/facture-form/facture-form.component';
+import { FactureUpdateComponent } from './pages/Factures/facture-update/facture-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -31,7 +34,12 @@ const routes: Routes = [
    { path: 'conventions/add', component: ConventionFormComponent },
    { path: 'users/add', component: UserFormComponent },
    {path: 'user-update/:uuid', component: UserUpdateComponent },
-   { path: 'convention-update/:uuid', component: ConventionUpdateComponent}
+   { path: 'convention-update/:uuid', component: ConventionUpdateComponent},
+  { path: 'factures', component: FactureListComponent },
+  { path: 'factures/add', component: FactureFormComponent },
+  {path: 'facture-update/:uuid', component: FactureUpdateComponent},
+
+
 ];
 
 @NgModule({

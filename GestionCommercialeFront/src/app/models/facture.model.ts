@@ -1,13 +1,12 @@
-import { Convention } from "./convention.model";
-
+// facture.model.ts
 export interface Facture {
-    id?: number;
-    uuid:String;
-    Reference: string;
-    dateEmission: Date;
-    dateEcheance: Date;
-    montantTotale:number
-    statut: String;
-    convention:Convention
-  }
-  
+  id?: number;
+  uuid?: string;
+  reference: string;
+  dateEmission: Date;
+  dateEcheance: Date;
+  montant: number;
+  status: string;
+  conventionUuid: string;
+  conventionCode?: string; // <-- we enrich this in frontend
+}

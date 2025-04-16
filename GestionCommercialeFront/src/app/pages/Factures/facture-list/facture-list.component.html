@@ -1,87 +1,106 @@
 <div class="">
-    <app-menu-ui></app-menu-ui>
-  
-    <div class="main-content">
-      <app-navbar></app-navbar>
-  
-      <div class="header-container">
-        <h2 class="page-title">Facture List</h2>
-        <div class="button-group">
-          <button routerLink="/factures/add" class="btn btn-success add-button">
-            <i class="bi bi-plus-circle-fill"></i> Add Facture
-          </button>
-        </div>
-      </div>
-  
-      <!-- Filter Section -->
-      <div class="search-container">
-        <div class="dropdown">
-          <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            {{ selectedFilter }}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" (click)="setFilter('numeroFacture')">Reference</a></li>
-            <li><a class="dropdown-item" (click)="setFilter('etat')">État</a></li>
-            <li><a class="dropdown-item" (click)="setFilter('typeFacture')">Type</a></li>
-          </ul>
-        </div>
-  
-        <input type="text" class="search-input" placeholder="Search By {{ selectedFilter }}" [(ngModel)]="searchValue" (input)="applyFilter()" />
-        <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
-      </div>
-  
-      <!-- Table Section -->
-      <div class="table-responsive mt-4">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th (click)="sortTable('numeroFacture')">Reference</th>
-              <th (click)="sortTable('dateEmission')">Date Emission</th>
-              <th (click)="sortTable('dateEcheance')">Date Échéance</th>
-              <th (click)="sortTable('typeFacture')">montant Totale</th>
-              <th (click)="sortTable('etat')">État</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let facture of paginatedFactures()">
-              <td>{{ facture.Reference }}</td>
-              <td>{{ facture.dateEmission | date:'dd/MM/yyyy' }}</td>
-              <td>{{ facture.dateEcheance | date:'dd/MM/yyyy' }}</td>
-              <td>{{ facture.montantTotale }}</td>
-              <td>{{ facture.statut }}</td>
-              <td><button class="btn btn-warning">Edit</button></td>
-              <!--<td><button class="btn btn-danger" (click)="deleteFacture(facture.id)">Delete</button></td>-->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <!-- Pagination -->
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-          <label for="itemsPerPage">Show:</label>
-          <select id="itemsPerPage" class="form-select d-inline-block w-auto ms-2" [(ngModel)]="itemsPerPage" (ngModelChange)="changePageSize($event)">
-            <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
-          </select>
-          Factures per page
-        </div>
-  
-        <nav>
-          <ul class="pagination">
-            <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-            </li>
-            <li *ngFor="let page of totalPagesArray()" class="page-item" [class.active]="page === currentPage">
-              <a class="page-link" (click)="changePage(page)">{{ page }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage === totalPages()">
-              <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-            </li>
-          </ul>
-        </nav>
+  <app-menu-ui></app-menu-ui>
+
+  <div class="main-content">
+    <app-navbar></app-navbar>
+
+    <div class="header-container">
+      <h2 class="page-title">Liste des Factures</h2>
+      <div class="button-group">
+        <button routerLink="/factures/add" class="btn btn-success add-button">
+          <i class="bi bi-plus-circle-fill"></i> Add Facture
+        </button>
       </div>
     </div>
+
+    <!-- Filter Section -->
+    <div class="search-container">
+      <div class="dropdown">
+        <button class="filter-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          {{ selectedFilter }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="setFilter('reference')">Reference</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('status')">Status</a></li>
+          <li><a class="dropdown-item" (click)="setFilter('convention')">Code Convention</a></li>
+        </ul>
+      </div>
+
+      <input type="text" class="search-input" placeholder="Search By {{ selectedFilter }}" [(ngModel)]="searchValue" (input)="applyFilter()" />
+      <button *ngIf="searchValue" class="clear-btn" (click)="clearFilter()">Clear</button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-responsive mt-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th (click)="sortTable('reference')">Reference</th>
+            <th (click)="sortTable('dateEmission')">Date Emission</th>
+            <th (click)="sortTable('dateEcheance')">Date Échéance</th>
+            <th (click)="sortTable('montant')">Montant</th>
+            <th (click)="sortTable('status')">Status</th>
+            <th (click)="sortTable('convention')">Code Convention</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let facture of paginatedFactures()">
+            <td>{{ facture.reference }}</td>
+            <td>{{ facture.dateEmission | date:'dd/MM/yyyy' }}</td>
+            <td>{{ facture.dateEcheance | date:'dd/MM/yyyy' }}</td>
+            <td>{{ facture.montant }}</td>
+            <td>
+              <span class="badge d-flex align-items-center gap-1 px-2 py-1"
+                    [ngClass]="{
+                      'bg-success': facture.status.toLowerCase() === 'payée' || facture.status.toLowerCase() === 'payee',
+                      'bg-warning text-dark': facture.status.toLowerCase() === 'en attente',
+                      'bg-danger': facture.status.toLowerCase() === 'impayée' || facture.status.toLowerCase() === 'impayee',
+                      'bg-secondary': facture.status.toLowerCase() === 'en retard'
+                    }">
+                <i class="bi"
+                   [ngClass]="{
+                     'bi-check-circle-fill': facture.status.toLowerCase() === 'payée' || facture.status.toLowerCase() === 'payee',
+                     'bi-hourglass-split': facture.status.toLowerCase() === 'en attente',
+                     'bi-x-circle-fill': facture.status.toLowerCase() === 'impayée' || facture.status.toLowerCase() === 'impayee',
+                     'bi-exclamation-triangle-fill': facture.status.toLowerCase() === 'en retard'
+                   }"></i>
+                {{ facture.status }}
+              </span>
+            </td>
+            
+            <td>{{ facture.conventionCode || 'N/A' }}</td>
+            <td><button class="btn btn-warning" [routerLink]="['/facture-update', facture.uuid]">Edit</button></td>
+            <td><button class="btn btn-danger" (click)="deleteFacture(facture.uuid)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div>
+        <label for="itemsPerPage">Show:</label>
+        <select id="itemsPerPage" class="form-select d-inline-block w-auto ms-2" [(ngModel)]="itemsPerPage" (ngModelChange)="changePageSize($event)">
+          <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+        </select>
+        Factures per page
+      </div>
+
+      <nav>
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+          </li>
+          <li *ngFor="let page of totalPagesArray()" class="page-item" [class.active]="page === currentPage">
+            <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages()">
+            <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  
+</div>

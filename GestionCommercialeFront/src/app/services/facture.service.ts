@@ -12,6 +12,19 @@ export class FactureService {
 
   constructor(private http: HttpClient) {}
   getAllFactures(): Observable<Facture[]> {
-      return this.http.get<Facture[]>(`${this.apiUrl}/factures/get-all-facture`);
-    }
+      return this.http.get<Facture[]>(`${this.apiUrl}/factures/get-all-factures`);
+      }
+
+  deleteFacture(uuid: string): Observable<void> {
+        return this.http.get<void>(`${this.apiUrl}/factures/delete-facture?uuid=${uuid}`);
+        }
+  updateFacture(facture: Facture): Observable<Facture> {
+        return this.http.post<Facture>(`${this.apiUrl}/factures/update-facture`, facture );
+      }
+  addFacture(facture: Facture): Observable<Facture> {
+        return this.http.post<Facture>(`${this.apiUrl}/factures/save-facture`, facture);
+  }
+  getFactureByUuid(uuid: string): Observable<Facture> {
+        return this.http.get<Facture>(`${this.apiUrl}/factures/get-facture?uuid=${uuid}`);
+  }
 }
